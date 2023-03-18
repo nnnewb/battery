@@ -16,6 +16,16 @@ func (s Set[T]) Add(values ...T) {
 	}
 }
 
+// Remove 从集合删除一个元素
+//
+//	s:=make(Set[int])
+//	s.Add(1,2,3)
+//	s.Remove(3)
+//	println(s.Contains(3))
+func (s Set[T]) Remove(value T) {
+	delete(s, value)
+}
+
 // Contains 返回指定元素是否存在于集合中
 //
 //	s := make(Set[int])

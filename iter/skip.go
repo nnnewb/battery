@@ -13,15 +13,25 @@ func Skip[T any](iterator Iterator[T], n int) Iterator[T] {
 	}
 }
 
+// Drop 是 Skip 的别名。
+func Drop[T any](iterator Iterator[T], n int) Iterator[T] {
+	return Skip(iterator, n)
+}
+
 func (i skipIter[T]) Exhausted() bool {
 	return i.underlying.Exhausted()
 }
 
 func (i skipIter[T]) Next() Iterator[T] {
-	if i.skip > 0 {
+	if i.underlying.Exhausted() {
+		return i
+	}
+
+	for i.skip > 0 {
 		i.underlying = i.underlying.Next()
 		i.skip--
 	}
+
 	i.underlying = i.underlying.Next()
 	return i
 }

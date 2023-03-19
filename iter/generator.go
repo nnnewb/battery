@@ -1,15 +1,15 @@
 package iter
 
-import "github.com/nnnewb/battery/optional"
-
-func gen[T any](f func(exhausted func()) T) <-chan optional.Optional[T] {
-	c := make(chan optional.Optional[T], 0)
+func gen[T any](f func(exhausted func()) T) <-chan T {
+	c := make(chan T, 0)
 	go func() {
+		defer close(c)
+
 		var exhausted bool
+		cb := func() { exhausted = true }
+
 		for exhausted {
-			c <- optional.Value(f(func() {
-				exhausted = true
-			}))
+			c <- f(cb)
 		}
 	}()
 	return c

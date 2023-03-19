@@ -1,7 +1,5 @@
 package iter
 
-import "github.com/nnnewb/battery/optional"
-
 // FromSlice 创建一个切片迭代器
 func FromSlice[T any](s []T) Iterator[T] {
 	return sliceIter[T]{
@@ -11,7 +9,7 @@ func FromSlice[T any](s []T) Iterator[T] {
 }
 
 // FromChan 从 go 内置的 chan 创建 Iterator
-func FromChan[T any](c <-chan optional.Optional[T]) Iterator[T] {
+func FromChan[T any](c <-chan T) Iterator[T] {
 	return chanIter[T]{c: c}
 }
 

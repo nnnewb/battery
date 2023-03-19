@@ -23,10 +23,6 @@ func (i MockIterator[T]) Exhausted() bool {
 	return i.idx >= len(i.sequence)
 }
 
-func (i MockIterator[T]) Initial() bool {
-	return i.idx == -1
-}
-
 func (i MockIterator[T]) NextCallCount() int {
 	return i.nextCallCount
 }
@@ -34,7 +30,7 @@ func (i MockIterator[T]) NextCallCount() int {
 func Mock[T any](seq ...T) MockIterator[T] {
 	return MockIterator[T]{
 		sequence:      seq,
-		idx:           0,
+		idx:           -1,
 		nextCallCount: 0,
 	}
 }

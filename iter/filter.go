@@ -6,9 +6,14 @@ type filterIter[T any] struct {
 }
 
 func (i filterIter[T]) Next() Iterator[T] {
-	for !i.Exhausted() && !i.f(i.underlying.Value()) {
-		i.underlying = i.underlying.Next()
+	it := i.underlying.Next()
+	for ; !it.Exhausted(); it = it.Next() {
+		if i.f(it.Value()) {
+			break
+		}
 	}
+
+	i.underlying = it
 	return i
 }
 

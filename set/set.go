@@ -4,6 +4,11 @@ import "github.com/nnnewb/battery/iter"
 
 type Set[T comparable] map[T]bool
 
+// New 构造一个新的集合。
+func New[T comparable]() Set[T] {
+	return make(Set[T])
+}
+
 // Add 往集合添加一个元素。
 //
 //	s := make(Set[int])
@@ -129,4 +134,24 @@ func (s Set[T]) Iter() iter.Iterator[T] {
 		exhausted()
 		return t
 	})
+}
+
+// Equals 检查两个集合是否有相同的元素。两个空集也是等同的。
+func (s Set[T]) Equals(other Set[T]) bool {
+	if len(s) != len(other) {
+		return false
+	}
+
+	for v := range s {
+		if !other.Contains(v) {
+			return false
+		}
+	}
+
+	return true
+}
+
+// Empty 检查集合是否是空集。
+func (s Set[T]) Empty() bool {
+	return len(s) == 0
 }

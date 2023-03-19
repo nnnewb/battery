@@ -8,15 +8,27 @@ type zipIter[T1, T2, R any] struct {
 }
 
 func (i zipIter[T1, T2, R]) Next() Iterator[R] {
-	i.it1 = i.it1.Next()
-	i.it2 = i.it2.Next()
-	if !i.it1.Exhausted() && i.it2.Exhausted() {
+	if !i.it1.Exhausted() {
+		i.it1 = i.it1.Next()
+	}
+
+	if !i.it2.Exhausted() {
+		i.it2 = i.it2.Next()
+	}
+
+	if !i.it1.Exhausted() && !i.it2.Exhausted() {
 		i.cur = i.f(i.it1.Value(), i.it2.Value())
 	}
+
 	return i
 }
 
 func (i zipIter[T1, T2, R]) Value() R {
+	var r R
+	if i.Exhausted() {
+		return r
+	}
+
 	return i.cur
 }
 
@@ -32,9 +44,6 @@ func Zip[T1, T2, R any](iterator Iterator[T1], iterator2 Iterator[T2], f func(T1
 		it1: iterator,
 		it2: iterator2,
 		f:   f,
-	}
-	if !it.Exhausted() {
-		it.cur = it.f(it.it1.Value(), it.it2.Value())
 	}
 	return it
 }

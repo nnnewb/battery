@@ -8,7 +8,7 @@ type mapIter[T, R any] struct {
 
 func (i mapIter[T, R]) Next() Iterator[R] {
 	i.underlying = i.underlying.Next()
-	if !i.Exhausted() {
+	if !i.underlying.Exhausted() {
 		i.cur = i.f(i.underlying.Value())
 	}
 	return i
@@ -26,9 +26,6 @@ func Map[T, R any](iterator Iterator[T], f func(T) R) Iterator[R] {
 	it := mapIter[T, R]{
 		f:          f,
 		underlying: iterator,
-	}
-	if !it.underlying.Exhausted() {
-		it.cur = it.f(it.underlying.Value())
 	}
 	return it
 }

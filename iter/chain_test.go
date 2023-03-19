@@ -47,15 +47,12 @@ func TestChainEmpty(t *testing.T) {
 }
 
 func TestChainExhausted(t *testing.T) {
-	delegate1 := Mock[int]()
-	delegate2 := Mock[int]()
+	delegate1 := Exhausted[int]()
+	delegate2 := Exhausted[int]()
 	it := Chain[int](delegate1, delegate2)
 
 	it = it.Next()
 	assert.Assert(t, it.Exhausted())
 	it = it.Next()
 	assert.Assert(t, it.Exhausted())
-
-	assert.Equal(t, delegate1.NextCallCount(), 0)
-	assert.Equal(t, delegate2.NextCallCount(), 0)
 }

@@ -22,3 +22,8 @@ func (i chanIter[T]) Value() T {
 }
 
 var _ Iterator[struct{}] = chanIter[struct{}]{}
+
+// FromChan 从 go 内置的 chan 创建 Iterator
+func FromChan[T any](c <-chan T) Iterator[T] {
+	return chanIter[T]{c: c}
+}

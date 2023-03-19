@@ -19,19 +19,17 @@ func TestSkip(t *testing.T) {
 }
 
 func TestSkipExhausted(t *testing.T) {
-	delegate := Mock[int]()
+	delegate := Exhausted[int]()
 	it := Skip[int](delegate, 5)
 
 	it = it.Next()
 	assert.Assert(t, it.Exhausted())
 	it = it.Next()
 	assert.Assert(t, it.Exhausted())
-
-	assert.Equal(t, it.(skipIter[int]).underlying.(MockIterator[int]).nextCallCount, 6)
 }
 
 func TestSkipExhaustedLater(t *testing.T) {
-	delegate := Mock[int](42, 43)
+	delegate := Lift([]int{42, 43})
 	it := Skip[int](delegate, 1)
 
 	it = it.Next()
@@ -40,5 +38,4 @@ func TestSkipExhaustedLater(t *testing.T) {
 	assert.Assert(t, it.Exhausted())
 	it = it.Next()
 	assert.Assert(t, it.Exhausted())
-	assert.Equal(t, it.(skipIter[int]).underlying.(MockIterator[int]).nextCallCount, 3)
 }

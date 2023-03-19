@@ -21,9 +21,9 @@ func (it countIter) Exhausted() bool {
 	return math.MaxInt == it.i
 }
 
-// Count 返回迭代器，返回从 1 开始递增的正整数。最大不超过 math.MaxInt 。
+// Count 返回迭代器，返回从 0 开始递增的正整数。最大不超过 math.MaxInt 。
 func Count() Iterator[int] {
 	return countIter{
-		i: 0,
+		i: -1,
 	}
 }

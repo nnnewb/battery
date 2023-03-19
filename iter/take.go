@@ -25,7 +25,7 @@ func (i takeIter[T]) Exhausted() bool {
 // Take 返回一个迭代器，取指定数量的元素
 func Take[T any](iterator Iterator[T], n int) Iterator[T] {
 	return takeIter[T]{
-		cur:        0,
+		cur:        -1,
 		limit:      n,
 		underlying: iterator,
 	}

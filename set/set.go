@@ -1,8 +1,6 @@
 package set
 
-import (
-	"github.com/nnnewb/battery/iter"
-)
+import "github.com/nnnewb/battery/iter"
 
 type Set[T comparable] map[T]bool
 
@@ -120,7 +118,7 @@ func (s Set[T]) ToSlice() []T {
 //
 //	s := make(Set[int])
 //	s.Add(1,2)
-//	slice := iter.Collect(iter.Filter(s.Iter(), func(i int) bool { return i > 1}))
+//	slice := Collect(Filter(s.Iter(), func(i int) bool { return i > 1}))
 //	println(len(slice)==1)
 func (s Set[T]) Iter() iter.Iterator[T] {
 	return iter.FromGenerateFunc(func(exhausted func()) T {

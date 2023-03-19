@@ -1,25 +1,23 @@
-package iter_test
+package iter
 
 import (
 	"fmt"
 	"github.com/nnnewb/battery/assert"
 	"testing"
-
-	"github.com/nnnewb/battery/iter"
 )
 
 func ExampleChain() {
 	fmt.Println(
-		iter.Collect[int](
-			iter.Chain[int](iter.Lift([]int{1, 2}),
-				iter.Lift([]int{3, 4}),
-				iter.Lift([]int{0, 9}),
+		Collect[int](
+			Chain[int](Lift([]int{1, 2}),
+				Lift([]int{3, 4}),
+				Lift([]int{0, 9}),
 			)))
 	// Output: [1 2 3 4 0 9]
 }
 
 func TestChainMultiple(t *testing.T) {
-	it := iter.Chain[int](iter.Lift([]int{1, 2}), iter.Lift([]int{3, 4}))
+	it := Chain[int](Lift([]int{1, 2}), Lift([]int{3, 4}))
 
 	it = it.Next()
 	assert.Equal(t, it.Value(), 1)
@@ -34,7 +32,7 @@ func TestChainMultiple(t *testing.T) {
 }
 
 func TestChainSingle(t *testing.T) {
-	it := iter.Chain[int](iter.Lift([]int{1, 2}))
+	it := Chain[int](Lift([]int{1, 2}))
 
 	it = it.Next()
 	assert.Equal(t, it.Value(), 1)
@@ -45,13 +43,13 @@ func TestChainSingle(t *testing.T) {
 }
 
 func TestChainEmpty(t *testing.T) {
-	assert.Assert(t, iter.Chain[int]().Next().Exhausted())
+	assert.Assert(t, Chain[int]().Next().Exhausted())
 }
 
 func TestChainExhausted(t *testing.T) {
-	delegate1 := iter.Mock[int]()
-	delegate2 := iter.Mock[int]()
-	it := iter.Chain[int](delegate1, delegate2)
+	delegate1 := Mock[int]()
+	delegate2 := Mock[int]()
+	it := Chain[int](delegate1, delegate2)
 
 	it = it.Next()
 	assert.Assert(t, it.Exhausted())

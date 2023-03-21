@@ -1,6 +1,14 @@
 # battery
 
-more power for go!
+More power for go!
+
+> This module still under heavy development, do not use.
+>
+> Any contribution are welcome.
+
+## My Goal
+
+Get every handy tools right on your desk. just pick one and make your jobs done.
 
 ## Installation
 
@@ -10,29 +18,13 @@ go get github.com/nnnewb/battery
 
 ## Usage
 
-### optional
+## Development plan
 
-TODO
-
-- [ ] unit test
-- [ ] example
-- [ ] document
-
-### iterator
-
-TODO
-
-- [ ] unit test
-- [ ] example
-- [ ] document
-
-### set
-
-TODO
-
-- [ ] unit test
-- [ ] example
-- [ ] document
+- `iter` is a iterator implementation. inspired by [BooleanCat/go-functional](https://github.com/BooleanCat/go-functional).
+- `collection` is a collection utility function set based on iterator. inspired by [underscore.js](https://underscorejs.org/#collections) and `python`.
+- `set` is a very basic map-set implementation. no concurrent safety promise. inspired by [deckarep/golang-set](https://github.com/deckarep/golang-set).
+- `slices` is a builtin slice utility function set which (almost all) copy from [golang.org/x/exp/slices](https://pkg.go.dev/golang.org/x/exp/slices).
+- `maps` is a builtin map utility function set which (almost all) copy from [golang.org/x/exp/maps](https://pkg.go.dev/golang.org/x/exp/maps).
 
 ## Contribution guideline
 

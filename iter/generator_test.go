@@ -2,7 +2,7 @@ package iter
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/assert"
+	assert2 "github.com/nnnewb/battery/internal/assert"
 	"testing"
 )
 
@@ -38,13 +38,13 @@ func TestGenerator(t *testing.T) {
 	}())
 
 	it = it.Next()
-	assert.Equal(t, it.Value(), 1)
+	assert2.Equal(t, it.Value(), 1)
 	it = it.Next()
-	assert.Equal(t, it.Value(), 2)
+	assert2.Equal(t, it.Value(), 2)
 	it = it.Next()
-	assert.Assert(t, it.Exhausted())
+	assert2.Assert(t, it.Exhausted())
 }
 
 func TestGeneratorEmpty(t *testing.T) {
-	assert.Assert(t, Lift([]int{}).Next().Exhausted())
+	assert2.Assert(t, Lift([]int{}).Next().Exhausted())
 }

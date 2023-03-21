@@ -1,6 +1,8 @@
 package iter
 
-import "github.com/nnnewb/battery/constraints"
+import (
+	"github.com/nnnewb/battery/internal/constraints"
+)
 
 // Range 返回一个范围迭代器，从指定起始值迭代到结束值。
 func Range[T constraints.Numeric](from T, to T, step T) Iterator[T] {

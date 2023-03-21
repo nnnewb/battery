@@ -2,7 +2,7 @@ package iter
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/assert"
+	assert2 "github.com/nnnewb/battery/internal/assert"
 	"testing"
 )
 
@@ -20,13 +20,13 @@ func TestMap(t *testing.T) {
 		Map[int](Count(), double),
 		4,
 	))
-	assert.SliceEqual(t, items, []int{0, 2, 4, 6})
+	assert2.SliceEqual(t, items, []int{0, 2, 4, 6})
 }
 
 func TestMapEmpty(t *testing.T) {
 	double := func(a int) int { return a * 2 }
 	items := Collect[int](Map[int](Exhausted[int](), double))
-	assert.Empty(t, items)
+	assert2.Empty(t, items)
 }
 
 func TestMapExhausted(t *testing.T) {
@@ -34,7 +34,7 @@ func TestMapExhausted(t *testing.T) {
 	it := Map[int](delegate, func(t int) float32 { return float32(t) })
 
 	it = it.Next()
-	assert.Assert(t, it.Exhausted())
+	assert2.Assert(t, it.Exhausted())
 	it = it.Next()
-	assert.Assert(t, it.Exhausted())
+	assert2.Assert(t, it.Exhausted())
 }

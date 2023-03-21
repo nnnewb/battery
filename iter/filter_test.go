@@ -2,7 +2,7 @@ package iter
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/assert"
+	assert2 "github.com/nnnewb/battery/internal/assert"
 	"testing"
 )
 
@@ -22,16 +22,16 @@ func TestFilter(t *testing.T) {
 	isEven := func(a int) bool { return a%2 == 0 }
 	it := Filter[int](Count(), isEven)
 	it = it.Next()
-	assert.Equal(t, it.Value(), 0)
+	assert2.Equal(t, it.Value(), 0)
 	it = it.Next()
-	assert.Equal(t, it.Value(), 2)
+	assert2.Equal(t, it.Value(), 2)
 }
 
 func TestFilterEmpty(t *testing.T) {
 	isEven := func(a int) bool { return a%2 == 0 }
 	it := Filter[int](Exhausted[int](), isEven)
 	it = it.Next()
-	assert.Assert(t, it.Exhausted())
+	assert2.Assert(t, it.Exhausted())
 }
 
 func TestFilterExhausted(t *testing.T) {
@@ -39,9 +39,9 @@ func TestFilterExhausted(t *testing.T) {
 	it := Filter[int](delegate, func(_ int) bool { return true })
 
 	it = it.Next()
-	assert.Assert(t, it.Exhausted())
+	assert2.Assert(t, it.Exhausted())
 	it = it.Next()
-	assert.Assert(t, it.Exhausted())
+	assert2.Assert(t, it.Exhausted())
 }
 
 func TestFilterExhaustedLater(t *testing.T) {
@@ -49,7 +49,7 @@ func TestFilterExhaustedLater(t *testing.T) {
 	it := Filter[int](delegate, func(_ int) bool { return true })
 
 	it = it.Next()
-	assert.Equal(t, it.Value(), 1)
+	assert2.Equal(t, it.Value(), 1)
 	it = it.Next()
-	assert.Assert(t, it.Exhausted())
+	assert2.Assert(t, it.Exhausted())
 }

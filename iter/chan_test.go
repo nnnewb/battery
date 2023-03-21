@@ -2,7 +2,7 @@ package iter
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/assert"
+	assert2 "github.com/nnnewb/battery/internal/assert"
 	"testing"
 )
 
@@ -33,17 +33,17 @@ func TestFromChannel(t *testing.T) {
 	it := FromChan(ch)
 
 	it = it.Next()
-	assert.Equal(t, it.Value(), 1)
+	assert2.Equal(t, it.Value(), 1)
 	it = it.Next()
-	assert.Equal(t, it.Value(), 2)
+	assert2.Equal(t, it.Value(), 2)
 	it = it.Next()
-	assert.Equal(t, it.Value(), 3)
+	assert2.Equal(t, it.Value(), 3)
 	it = it.Next()
-	assert.Assert(t, it.Exhausted())
+	assert2.Assert(t, it.Exhausted())
 }
 
 func TestFromChannelEmpty(t *testing.T) {
 	ch := make(chan int)
 	close(ch)
-	assert.Assert(t, FromChan(ch).Next().Exhausted())
+	assert2.Assert(t, FromChan(ch).Next().Exhausted())
 }

@@ -2,7 +2,7 @@ package collection
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/assert"
+	"github.com/nnnewb/battery/internal/assert"
 	"github.com/nnnewb/battery/iter"
 	"strconv"
 	"testing"

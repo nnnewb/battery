@@ -1,7 +1,7 @@
 package set
 
 import (
-	"github.com/nnnewb/battery/assert"
+	"github.com/nnnewb/battery/internal/assert"
 	"reflect"
 	"testing"
 )

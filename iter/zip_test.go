@@ -2,7 +2,7 @@ package iter
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/assert"
+	"github.com/nnnewb/battery/internal/assert"
 	"testing"
 )
 

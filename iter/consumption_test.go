@@ -2,7 +2,7 @@ package iter
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/assert"
+	assert2 "github.com/nnnewb/battery/internal/assert"
 	"testing"
 )
 
@@ -25,19 +25,19 @@ func ExampleToChannel() {
 
 func TestCollect(t *testing.T) {
 	items := Collect[int](Take[int](Count(), 5))
-	assert.SliceEqual(t, items, []int{0, 1, 2, 3, 4})
+	assert2.SliceEqual(t, items, []int{0, 1, 2, 3, 4})
 }
 
 func TestCollectEmpty(t *testing.T) {
 	items := Collect[int](Take[int](Count(), 0))
-	assert.Empty(t, items)
+	assert2.Empty(t, items)
 }
 
 func TestToChannel(t *testing.T) {
 	expected := 0
 	for number := range ToChannel[int](Lift([]int{1, 2, 3, 4})) {
 		expected += 1
-		assert.Equal(t, number, expected)
+		assert2.Equal(t, number, expected)
 	}
 }
 

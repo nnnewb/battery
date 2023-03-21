@@ -2,7 +2,7 @@ package iter
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/assert"
+	assert2 "github.com/nnnewb/battery/internal/assert"
 	"testing"
 )
 
@@ -20,30 +20,30 @@ func TestChainMultiple(t *testing.T) {
 	it := Chain[int](Lift([]int{1, 2}), Lift([]int{3, 4}))
 
 	it = it.Next()
-	assert.Equal(t, it.Value(), 1)
+	assert2.Equal(t, it.Value(), 1)
 	it = it.Next()
-	assert.Equal(t, it.Value(), 2)
+	assert2.Equal(t, it.Value(), 2)
 	it = it.Next()
-	assert.Equal(t, it.Value(), 3)
+	assert2.Equal(t, it.Value(), 3)
 	it = it.Next()
-	assert.Equal(t, it.Value(), 4)
+	assert2.Equal(t, it.Value(), 4)
 	it = it.Next()
-	assert.Assert(t, it.Exhausted())
+	assert2.Assert(t, it.Exhausted())
 }
 
 func TestChainSingle(t *testing.T) {
 	it := Chain[int](Lift([]int{1, 2}))
 
 	it = it.Next()
-	assert.Equal(t, it.Value(), 1)
+	assert2.Equal(t, it.Value(), 1)
 	it = it.Next()
-	assert.Equal(t, it.Value(), 2)
+	assert2.Equal(t, it.Value(), 2)
 	it = it.Next()
-	assert.Assert(t, it.Exhausted())
+	assert2.Assert(t, it.Exhausted())
 }
 
 func TestChainEmpty(t *testing.T) {
-	assert.Assert(t, Chain[int]().Next().Exhausted())
+	assert2.Assert(t, Chain[int]().Next().Exhausted())
 }
 
 func TestChainExhausted(t *testing.T) {
@@ -52,7 +52,7 @@ func TestChainExhausted(t *testing.T) {
 	it := Chain[int](delegate1, delegate2)
 
 	it = it.Next()
-	assert.Assert(t, it.Exhausted())
+	assert2.Assert(t, it.Exhausted())
 	it = it.Next()
-	assert.Assert(t, it.Exhausted())
+	assert2.Assert(t, it.Exhausted())
 }

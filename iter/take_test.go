@@ -2,48 +2,42 @@ package iter
 
 import (
 	"fmt"
-	assert2 "github.com/nnnewb/battery/internal/assert"
+	assert "github.com/nnnewb/battery/internal/assert"
 	"testing"
 )
 
 func ExampleTake() {
-	it := Take[int](Count(), 2)
-
-	it = it.Next()
+	it := Take[int](Range[int](1, 10, 1), 2)
+	it.Next()
 	fmt.Println(it.Value())
-	it = it.Next()
+	it.Next()
 	fmt.Println(it.Value())
-	it = it.Next()
-	fmt.Println(it.Exhausted())
+	fmt.Println(!it.Next())
 	// Output:
-	// 0
 	// 1
+	// 2
 	// true
 }
 
 func TestTakeIter(t *testing.T) {
-	it := Take[int](Count(), 2)
+	it := Take[int](Range[int](0, 10, 1), 2)
 
-	it = it.Next()
-	assert2.Equal(t, it.Value(), 0)
-	it = it.Next()
-	assert2.Equal(t, it.Value(), 1)
-	it = it.Next()
-	assert2.Assert(t, it.Exhausted())
+	it.Next()
+	assert.Equal(t, it.Value(), 0)
+	it.Next()
+	assert.Equal(t, it.Value(), 1)
+	assert.Assert(t, !it.Next())
 }
 
 func TestTakeIterEmpty(t *testing.T) {
-	it := Take[int](Count(), 0)
-	it = it.Next()
-	assert2.Assert(t, it.Exhausted())
+	it := Take[int](Range[int](0, 10, 1), 0)
+	assert.Assert(t, !it.Next())
 }
 
 func TestTakeExhausted(t *testing.T) {
 	delegate := Exhausted[int]()
 	it := Take[int](delegate, 10)
 
-	it = it.Next()
-	assert2.Assert(t, it.Exhausted())
-	it = it.Next()
-	assert2.Assert(t, it.Exhausted())
+	assert.Assert(t, !it.Next())
+	assert.Assert(t, !it.Next())
 }

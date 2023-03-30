@@ -7,10 +7,10 @@ import (
 )
 
 func ExampleExhausted() {
-	fmt.Println(Exhausted[int]().Next().Exhausted())
+	fmt.Println(!Exhausted[int]().Next())
 	// Output: true
 }
 
 func TestExhausted(t *testing.T) {
-	assert.Assert(t, Exhausted[int]().Next().Exhausted())
+	assert.Assert(t, !Exhausted[int]().Next())
 }

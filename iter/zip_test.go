@@ -21,8 +21,8 @@ func makeTuple[T1, T2 any](a T1, b T2) tuple[T1, T2] {
 func ExampleZip() {
 	isEven := func(a int) bool { return a%2 == 0 }
 	isOdd := func(a int) bool { return !isEven(a) }
-	evens := Filter[int](Count(), isEven)
-	odds := Filter[int](Count(), isOdd)
+	evens := Filter[int](Range[int](0, 10, 1), isEven)
+	odds := Filter[int](Range[int](0, 10, 1), isOdd)
 
 	zipped := Collect[tuple[int, int]](
 		Take[tuple[int, int]](Zip[int, int](evens, odds, makeTuple[int, int]), 3),
@@ -34,8 +34,8 @@ func ExampleZip() {
 func TestZip(t *testing.T) {
 	isEven := func(a int) bool { return a%2 == 0 }
 	isOdd := func(a int) bool { return !isEven(a) }
-	evens := Filter[int](Count(), isEven)
-	odds := Filter[int](Count(), isOdd)
+	evens := Filter[int](Range[int](0, 10, 1), isEven)
+	odds := Filter[int](Range[int](0, 10, 1), isOdd)
 
 	zipped := Collect[tuple[int, int]](
 		Take[tuple[int, int]](Zip[int, int](evens, odds, makeTuple[int, int]), 3),

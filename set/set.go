@@ -119,20 +119,19 @@ func (s Set[T]) ToSlice() []T {
 	return iter.Collect(s.Iter())
 }
 
-// Iter 基于 Chan 创建的迭代器。
+// Iter 基于 Generator 创建的迭代器。
 //
 //	s := make(Set[int])
 //	s.Add(1,2)
 //	slice := Collect(Filter(s.Iter(), func(i int) bool { return i > 1}))
 //	println(len(slice)==1)
 func (s Set[T]) Iter() iter.Iterator[T] {
-	return iter.FromGenerateFunc(func(exhausted func()) T {
+	return iter.Generator[T](func() (T, bool) {
 		var t T
 		for v := range s {
-			return v
+			return v, true
 		}
-		exhausted()
-		return t
+		return t, false
 	})
 }
 

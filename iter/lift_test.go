@@ -13,14 +13,14 @@ func ExampleLift() {
 }
 
 func TestLift(t *testing.T) {
-	it := Lift([]int{1, 2}).Next()
+	it := Lift([]int{1, 2})
+	it.Next()
 	assert2.Equal(t, it.Value(), 1)
-	it = it.Next()
+	it.Next()
 	assert2.Equal(t, it.Value(), 2)
-	it = it.Next()
-	assert2.Assert(t, it.Exhausted())
+	assert2.Assert(t, !it.Next())
 }
 
 func TestLiftEmpty(t *testing.T) {
-	assert2.Assert(t, Lift([]int{}).Next().Exhausted())
+	assert2.Assert(t, !Lift([]int{}).Next())
 }

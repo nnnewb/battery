@@ -7,7 +7,7 @@ import (
 )
 
 func ExampleCollect() {
-	numbers := Collect[int](Take[int](Count(), 3))
+	numbers := Collect[int](Range[int](0, 3, 1))
 	fmt.Println(numbers)
 	// Output: [0 1 2]
 }
@@ -21,16 +21,6 @@ func ExampleToChannel() {
 	// 1
 	// 2
 	// 3
-}
-
-func TestCollect(t *testing.T) {
-	items := Collect[int](Take[int](Count(), 5))
-	assert2.SliceEqual(t, items, []int{0, 1, 2, 3, 4})
-}
-
-func TestCollectEmpty(t *testing.T) {
-	items := Collect[int](Take[int](Count(), 0))
-	assert2.Empty(t, items)
 }
 
 func TestToChannel(t *testing.T) {

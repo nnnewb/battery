@@ -12,8 +12,9 @@ func Range[T constraints.Numeric](from T, to T, step T) Iterator[T] {
 			if cur+step > to {
 				return 0, false
 			}
+			ret := cur
 			cur += step
-			return cur, true
+			return ret, true
 		}
 	}())
 }

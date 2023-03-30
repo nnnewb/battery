@@ -2,6 +2,7 @@ package assert
 
 import "testing"
 
+// Equal 比较两个可比较类型的值是否一致。若不一致则测试失败。
 func Equal[T comparable](t *testing.T, expr1, expr2 T) {
 	t.Helper()
 
@@ -10,6 +11,8 @@ func Equal[T comparable](t *testing.T, expr1, expr2 T) {
 	}
 }
 
+// SliceEqual 比较两个切片是否相同，要求两个切片大小、元素、顺序都一致。
+// 元素必须是可比较的。若不一致则测试失败。
 func SliceEqual[T comparable](t *testing.T, s1, s2 []T) {
 	t.Helper()
 

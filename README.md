@@ -20,8 +20,7 @@ go get github.com/nnnewb/battery
 
 ## Development plan
 
-- `iter` is a iterator implementation. inspired by [BooleanCat/go-functional](https://github.com/BooleanCat/go-functional).
-- `collection` is a collection utility function set based on iterator. inspired by [underscore.js](https://underscorejs.org/#collections) and `python`.
+- `iter` is a iterator implementation. inspired by [BooleanCat/go-functional](https://github.com/BooleanCat/go-functional) and [underscore.js](https://underscorejs.org/#collections).
 - `set` is a very basic map-set implementation. no concurrent safety promise. inspired by [deckarep/golang-set](https://github.com/deckarep/golang-set).
 - `slices` is a builtin slice utility function set which (almost all) copy from [golang.org/x/exp/slices](https://pkg.go.dev/golang.org/x/exp/slices).
 - `maps` is a builtin map utility function set which (almost all) copy from [golang.org/x/exp/maps](https://pkg.go.dev/golang.org/x/exp/maps).

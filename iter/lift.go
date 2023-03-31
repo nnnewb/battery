@@ -2,6 +2,10 @@ package iter
 
 // FromSlice 创建一个切片迭代器
 func FromSlice[T any](s []T) Iterator[T] {
+	if len(s) == 0 {
+		return Exhausted[T]()
+	}
+
 	return Generator[T](func() GenFunc[T] {
 		var i int
 		return func() (T, bool) {

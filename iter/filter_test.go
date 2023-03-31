@@ -3,6 +3,8 @@ package iter
 import (
 	"fmt"
 	"github.com/nnnewb/battery/internal/assert"
+	"github.com/nnnewb/battery/internal/predicate"
+	"reflect"
 	"testing"
 )
 
@@ -47,4 +49,57 @@ func TestFilterExhaustedLater(t *testing.T) {
 	it.Next()
 	assert.Equal(t, it.Value(), 1)
 	assert.Assert(t, !it.Next())
+}
+
+func TestFilterTableDriven(t *testing.T) {
+	type args[T any] struct {
+		iterator Iterator[int]
+		isZero   func(T) bool
+	}
+	type testCase[T any] struct {
+		name string
+		args args[T]
+		want []int
+	}
+	tests := []testCase[int]{
+		{
+			name: "empty",
+			args: args[int]{
+				iterator: Exhausted[int](),
+				isZero:   predicate.IsZero[int],
+			},
+			want: make([]int, 0),
+		},
+		{
+			name: "shrink to zero",
+			args: args[int]{
+				iterator: Range(-10, 0, 1),
+				isZero:   predicate.IsPositive[int],
+			},
+			want: make([]int, 0),
+		},
+		{
+			name: "no change",
+			args: args[int]{
+				iterator: Range(1, 10, 1),
+				isZero:   predicate.IsPositive[int],
+			},
+			want: Collect(Range(1, 10, 1)),
+		},
+		{
+			name: "shrink",
+			args: args[int]{
+				iterator: Range(-5, 5, 1),
+				isZero:   predicate.IsPositive[int],
+			},
+			want: Collect(Range(1, 5, 1)),
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Filter(tt.args.iterator, tt.args.isZero); !reflect.DeepEqual(Collect(got), tt.want) {
+				t.Errorf("Compact() = %v, want %v", Collect(got), tt.want)
+			}
+		})
+	}
 }

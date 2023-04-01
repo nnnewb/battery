@@ -41,5 +41,5 @@ func TestZip(t *testing.T) {
 		Take[tuple[int, int]](Zip[int, int](evens, odds, makeTuple[int, int]), 3),
 	)
 
-	assert.SliceEqual(t, zipped, []tuple[int, int]{{0, 1}, {2, 3}, {4, 5}})
+	assert.Equal(t, zipped, []tuple[int, int]{{0, 1}, {2, 3}, {4, 5}})
 }

@@ -20,7 +20,7 @@ func TestMap(t *testing.T) {
 		Map[int](Range[int](0, 10, 1), double),
 		4,
 	))
-	assert.SliceEqual(t, items, []int{0, 2, 4, 6})
+	assert.Equal(t, items, []int{0, 2, 4, 6})
 }
 
 func TestMapEmpty(t *testing.T) {

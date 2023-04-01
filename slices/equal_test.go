@@ -1,10 +1,11 @@
 package slices
 
 import (
-	"github.com/nnnewb/battery/internal/constraints"
 	"math"
 	"strings"
 	"testing"
+
+	"github.com/nnnewb/battery/internal/constraints"
 )
 
 var equalIntTests = []struct {

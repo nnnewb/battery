@@ -3,14 +3,15 @@ package iter
 import (
 	"crypto/rand"
 	"fmt"
-	assert2 "github.com/nnnewb/battery/internal/assert"
 	"io"
 	"testing"
+
+	assert2 "github.com/nnnewb/battery/internal/assert"
 )
 
 func ExampleLift() {
-	positives := Filter[int](Lift([]int{-1, 4, 6, 4, -5}), func(i int) bool { return i > -1 })
-	fmt.Println(Collect[int](positives))
+	positives := Filter(Lift([]int{-1, 4, 6, 4, -5}), func(i int) bool { return i > -1 })
+	fmt.Println(Collect(positives))
 	// Output: [4 6 4]
 }
 

@@ -1,6 +1,6 @@
 package iter
 
-// GroupBy 将元素按指定键分组
+// GroupBy 将元素按指定键分组.
 func GroupBy[T any, K comparable](it Iterator[T], keyFunc func(T) K) map[K][]T {
 	ret := make(map[K][]T)
 	for it.Next() {

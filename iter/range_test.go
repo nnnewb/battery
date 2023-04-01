@@ -2,14 +2,15 @@ package iter
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/internal/assert"
 	"testing"
+
+	"github.com/nnnewb/battery/internal/assert"
 )
 
 func ExampleRange() {
 	positive := func(i int) bool { return i > 0 }
-	positives := Filter[int](Range(-10, 10, 2), positive)
-	fmt.Println(Collect[int](positives))
+	positives := Filter(Range(-10, 10, 2), positive)
+	fmt.Println(Collect(positives))
 	// Output: [2 4 6 8]
 }
 

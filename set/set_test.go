@@ -1,9 +1,10 @@
 package set
 
 import (
-	"github.com/nnnewb/battery/internal/assert"
 	"reflect"
 	"testing"
+
+	"github.com/nnnewb/battery/internal/assert"
 )
 
 func TestSet_Add(t *testing.T) {

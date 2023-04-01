@@ -2,14 +2,15 @@ package iter
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/internal/assert"
-	"github.com/nnnewb/battery/internal/predicate"
 	"reflect"
 	"testing"
+
+	"github.com/nnnewb/battery/internal/assert"
+	"github.com/nnnewb/battery/internal/predicate"
 )
 
 func ExampleFilter() {
-	it := Filter[int](Lift([]int{0, 1, 0, 2}), func(i int) bool { return i == 0 })
+	it := Filter(Lift([]int{0, 1, 0, 2}), func(i int) bool { return i == 0 })
 	for it.Next() {
 		fmt.Println(it.Value())
 	}
@@ -21,7 +22,7 @@ func ExampleFilter() {
 
 func TestFilter(t *testing.T) {
 	isEven := func(a int) bool { return a%2 == 0 }
-	it := Filter[int](Range[int](0, 10, 1), isEven)
+	it := Filter(Range(0, 10, 1), isEven)
 	it.Next()
 	assert.Equal(t, it.Value(), 0)
 	it.Next()
@@ -30,13 +31,13 @@ func TestFilter(t *testing.T) {
 
 func TestFilterEmpty(t *testing.T) {
 	isEven := func(a int) bool { return a%2 == 0 }
-	it := Filter[int](Exhausted[int](), isEven)
+	it := Filter(Exhausted[int](), isEven)
 	assert.Assert(t, !it.Next())
 }
 
 func TestFilterExhausted(t *testing.T) {
 	delegate := Exhausted[int]()
-	it := Filter[int](delegate, func(_ int) bool { return true })
+	it := Filter(delegate, func(_ int) bool { return true })
 
 	assert.Assert(t, !it.Next())
 	assert.Assert(t, !it.Next())
@@ -44,7 +45,7 @@ func TestFilterExhausted(t *testing.T) {
 
 func TestFilterExhaustedLater(t *testing.T) {
 	delegate := Lift([]int{1})
-	it := Filter[int](delegate, func(_ int) bool { return true })
+	it := Filter(delegate, func(_ int) bool { return true })
 
 	it.Next()
 	assert.Equal(t, it.Value(), 1)
@@ -96,9 +97,11 @@ func TestFilterTableDriven(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		got := Filter(tt.args.iterator, tt.args.isZero)
+		s := Collect(got)
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Filter(tt.args.iterator, tt.args.isZero); !reflect.DeepEqual(Collect(got), tt.want) {
-				t.Errorf("Compact() = %v, want %v", Collect(got), tt.want)
+			if !reflect.DeepEqual(s, tt.want) {
+				t.Errorf("Compact() = %v, want %v", s, tt.want)
 			}
 		})
 	}

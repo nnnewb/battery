@@ -6,7 +6,7 @@ import (
 )
 
 func ExampleContains() {
-	fmt.Println(Contains[int](Range[int](0, 10, 1), 0))
+	fmt.Println(Contains(Range(0, 10, 1), 0))
 	// output:
 	// true
 }
@@ -25,7 +25,7 @@ func TestContains(t *testing.T) {
 		{
 			name: "expect true",
 			args: args[int]{
-				iterable: Range[int](-10, 2, 1),
+				iterable: Range(-10, 2, 1),
 				val:      1,
 			},
 			want: true,
@@ -33,7 +33,7 @@ func TestContains(t *testing.T) {
 		{
 			name: "expect false",
 			args: args[int]{
-				iterable: Range[int](-10, 1, 1),
+				iterable: Range(-10, 1, 1),
 				val:      1,
 			},
 			want: false,

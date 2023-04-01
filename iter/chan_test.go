@@ -2,8 +2,9 @@ package iter
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/internal/assert"
 	"testing"
+
+	"github.com/nnnewb/battery/internal/assert"
 )
 
 func ExampleFromChan() {
@@ -15,7 +16,7 @@ func ExampleFromChan() {
 		close(ch)
 	}()
 
-	fmt.Println(Collect[int](FromChan(ch)))
+	fmt.Println(Collect(FromChan(ch)))
 
 	// Output: [1 2]
 }

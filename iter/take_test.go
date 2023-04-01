@@ -2,12 +2,13 @@ package iter
 
 import (
 	"fmt"
-	assert "github.com/nnnewb/battery/internal/assert"
 	"testing"
+
+	assert "github.com/nnnewb/battery/internal/assert"
 )
 
 func ExampleTake() {
-	it := Take[int](Range[int](1, 10, 1), 2)
+	it := Take(Range(1, 10, 1), 2)
 	it.Next()
 	fmt.Println(it.Value())
 	it.Next()
@@ -20,7 +21,7 @@ func ExampleTake() {
 }
 
 func TestTakeIter(t *testing.T) {
-	it := Take[int](Range[int](0, 10, 1), 2)
+	it := Take(Range(0, 10, 1), 2)
 
 	it.Next()
 	assert.Equal(t, it.Value(), 0)
@@ -30,13 +31,13 @@ func TestTakeIter(t *testing.T) {
 }
 
 func TestTakeIterEmpty(t *testing.T) {
-	it := Take[int](Range[int](0, 10, 1), 0)
+	it := Take(Range(0, 10, 1), 0)
 	assert.Assert(t, !it.Next())
 }
 
 func TestTakeExhausted(t *testing.T) {
 	delegate := Exhausted[int]()
-	it := Take[int](delegate, 10)
+	it := Take(delegate, 10)
 
 	assert.Assert(t, !it.Next())
 	assert.Assert(t, !it.Next())

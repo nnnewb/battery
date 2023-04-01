@@ -1,0 +1,15 @@
+linters:
+  # Enable presets.
+  # https://golangci-lint.run/usage/linters
+  disable-all: true
+  enable:
+    - asasalint
+    - bodyclose
+    - govet
+    - staticcheck
+    - ineffassign
+    - errname
+    - exhaustive
+    - gofumpt
+issues:
+  fix: true

@@ -2,12 +2,13 @@ package iter
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/internal/assert"
 	"testing"
+
+	"github.com/nnnewb/battery/internal/assert"
 )
 
 func ExampleGenerator() {
-	positives := Filter[int](Generator[int](func() func() (int, bool) {
+	positives := Filter(Generator(func() func() (int, bool) {
 		var i int
 		values := []int{-1, 4, 6, 4, -5}
 		return func() (int, bool) {
@@ -19,13 +20,13 @@ func ExampleGenerator() {
 			return 0, false
 		}
 	}()), func(i int) bool { return i > -1 })
-	fmt.Println(Collect[int](positives))
+	fmt.Println(Collect(positives))
 	// Output: [4 6 4]
 }
 
 func TestGenerator(t *testing.T) {
 	it := Generator(func() func() (int, bool) {
-		var i = -1
+		i := -1
 		values := []int{1, 2}
 		return func() (int, bool) {
 			if i+1 < len(values) {

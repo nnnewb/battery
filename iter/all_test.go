@@ -7,7 +7,7 @@ import (
 
 func ExampleAll() {
 	positive := func(i int) bool { return i > 0 }
-	fmt.Println(All(Range[int](1, 10, 1), positive))
+	fmt.Println(All(Range(1, 10, 1), positive))
 	// output:
 	// true
 }
@@ -34,7 +34,7 @@ func TestAll(t *testing.T) {
 		{
 			name: "expect true",
 			args: args[int]{
-				iterable:  Range[int](1, 5, 1),
+				iterable:  Range(1, 5, 1),
 				predicate: func(i int) bool { return i > 0 },
 			},
 			want: true,
@@ -42,7 +42,7 @@ func TestAll(t *testing.T) {
 		{
 			name: "expect false",
 			args: args[int]{
-				iterable:  Range[int](-5, 0, 1),
+				iterable:  Range(-5, 0, 1),
 				predicate: func(i int) bool { return i > 0 },
 			},
 			want: false,

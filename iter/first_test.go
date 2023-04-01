@@ -2,9 +2,10 @@ package iter
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/internal/predicate"
 	"reflect"
 	"testing"
+
+	"github.com/nnnewb/battery/internal/predicate"
 )
 
 func ExampleFirst() {

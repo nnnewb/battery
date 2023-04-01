@@ -1,6 +1,6 @@
 package iter
 
-// Take 返回一个迭代器，取指定数量的元素
+// Take 返回一个迭代器，取指定数量的元素.
 func Take[T any](it Iterator[T], n int) Iterator[T] {
 	return Generator(func() GenFunc[T] {
 		limit := n

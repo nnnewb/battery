@@ -2,8 +2,9 @@ package iter
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/internal/assert"
 	"testing"
+
+	"github.com/nnnewb/battery/internal/assert"
 )
 
 func ExampleExhausted() {

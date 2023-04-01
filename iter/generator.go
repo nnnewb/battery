@@ -17,7 +17,7 @@ func (i *genIter[T]) Value() T {
 	return i.cur
 }
 
-// Generator 从生成函数创建迭代器
+// Generator 从生成函数创建迭代器.
 func Generator[T any](f GenFunc[T]) Iterator[T] {
 	return &genIter[T]{
 		f: f,

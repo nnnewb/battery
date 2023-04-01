@@ -2,12 +2,13 @@ package iter
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/internal/predicate"
 	"testing"
+
+	"github.com/nnnewb/battery/internal/predicate"
 )
 
 func ExampleAny() {
-	fmt.Println(Any[int](Range[int](0, 10, 1), predicate.IsZero[int]))
+	fmt.Println(Any(Range(0, 10, 1), predicate.IsZero[int]))
 	// output:
 	// true
 }
@@ -26,7 +27,7 @@ func TestAny(t *testing.T) {
 		{
 			name: "expect true",
 			args: args[int]{
-				iterable:  Range[int](-10, 2, 1),
+				iterable:  Range(-10, 2, 1),
 				predicate: predicate.IsPositive[int],
 			},
 			want: true,
@@ -34,7 +35,7 @@ func TestAny(t *testing.T) {
 		{
 			name: "expect false",
 			args: args[int]{
-				iterable:  Range[int](-10, 1, 1),
+				iterable:  Range(-10, 1, 1),
 				predicate: predicate.IsPositive[int],
 			},
 			want: false,

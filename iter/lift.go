@@ -1,12 +1,12 @@
 package iter
 
-// FromSlice 创建一个切片迭代器
+// FromSlice 创建一个切片迭代器.
 func FromSlice[T any](s []T) Iterator[T] {
 	if len(s) == 0 {
 		return Exhausted[T]()
 	}
 
-	return Generator[T](func() GenFunc[T] {
+	return Generator(func() GenFunc[T] {
 		var i int
 		return func() (T, bool) {
 			var t T
@@ -20,7 +20,7 @@ func FromSlice[T any](s []T) Iterator[T] {
 	}())
 }
 
-// Lift 兼容 go-functional 的写法，等同于 FromSlice
+// Lift 兼容 go-functional 的写法，等同于 FromSlice.
 func Lift[T any](s []T) Iterator[T] {
 	return FromSlice(s)
 }

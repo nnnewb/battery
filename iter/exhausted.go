@@ -11,7 +11,7 @@ func (i exhaustedIter[T]) Value() T {
 	return t
 }
 
-// Exhausted 返回一个已经穷尽的迭代器
+// Exhausted 返回一个已经穷尽的迭代器.
 func Exhausted[T any]() Iterator[T] {
 	return exhaustedIter[T]{}
 }

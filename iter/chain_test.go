@@ -2,14 +2,15 @@ package iter
 
 import (
 	"fmt"
-	"github.com/nnnewb/battery/internal/assert"
 	"testing"
+
+	"github.com/nnnewb/battery/internal/assert"
 )
 
 func ExampleChain() {
 	fmt.Println(
-		Collect[int](
-			Chain[int](Lift([]int{1, 2}),
+		Collect(
+			Chain(Lift([]int{1, 2}),
 				Lift([]int{3, 4}),
 				Lift([]int{0, 9}),
 			)))
@@ -17,7 +18,7 @@ func ExampleChain() {
 }
 
 func TestChainMultiple(t *testing.T) {
-	it := Chain[int](Lift([]int{1, 2}), Lift([]int{3, 4}))
+	it := Chain(Lift([]int{1, 2}), Lift([]int{3, 4}))
 
 	it.Next()
 	assert.Equal(t, it.Value(), 1)
@@ -31,7 +32,7 @@ func TestChainMultiple(t *testing.T) {
 }
 
 func TestChainSingle(t *testing.T) {
-	it := Chain[int](Lift([]int{1, 2}))
+	it := Chain(Lift([]int{1, 2}))
 
 	it.Next()
 	assert.Equal(t, it.Value(), 1)
@@ -47,7 +48,7 @@ func TestChainEmpty(t *testing.T) {
 func TestChainExhausted(t *testing.T) {
 	delegate1 := Exhausted[int]()
 	delegate2 := Exhausted[int]()
-	it := Chain[int](delegate1, delegate2)
+	it := Chain(delegate1, delegate2)
 
 	it.Next()
 	assert.Assert(t, !it.Next())

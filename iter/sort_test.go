@@ -1,9 +1,10 @@
 package iter
 
 import (
-	"github.com/nnnewb/battery/internal/constraints"
 	"reflect"
 	"testing"
+
+	"github.com/nnnewb/battery/internal/constraints"
 )
 
 func TestSortInt(t *testing.T) {

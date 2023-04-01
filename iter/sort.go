@@ -1,8 +1,9 @@
 package iter
 
 import (
-	"github.com/nnnewb/battery/internal/constraints"
 	"sort"
+
+	"github.com/nnnewb/battery/internal/constraints"
 )
 
 type sortPair[K constraints.Ordered, V any] struct {

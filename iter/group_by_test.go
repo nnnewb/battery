@@ -29,12 +29,12 @@ func TestGroupBy(t *testing.T) {
 		it      Iterator[int]
 		keyFunc func(T) K
 	}
-	type testCase[T any, K comparable] struct {
+	type groupByTestCase[T any, K comparable] struct {
 		name string
 		args args[T, K]
 		want map[K][]T
 	}
-	tests := []testCase[int, int]{
+	tests := []groupByTestCase[int, int]{
 		{
 			name: "exhausted",
 			args: args[int, int]{

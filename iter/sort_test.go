@@ -8,19 +8,19 @@ import (
 )
 
 func TestSortInt(t *testing.T) {
-	type args[T any, K constraints.Ordered] struct {
+	type sortIntArgs[T any, K constraints.Ordered] struct {
 		it      Iterator[int]
 		keyFunc func(T) K
 	}
-	type testCase[T any, K constraints.Ordered] struct {
+	type sortIntTestCase[T any, K constraints.Ordered] struct {
 		name string
-		args args[T, K]
+		args sortIntArgs[T, K]
 		want []int
 	}
-	tests := []testCase[int, int]{
+	tests := []sortIntTestCase[int, int]{
 		{
 			name: "exhausted",
-			args: args[int, int]{
+			args: sortIntArgs[int, int]{
 				it:      Exhausted[int](),
 				keyFunc: func(i int) int { return i },
 			},
@@ -28,7 +28,7 @@ func TestSortInt(t *testing.T) {
 		},
 		{
 			name: "simple sort",
-			args: args[int, int]{
+			args: sortIntArgs[int, int]{
 				it:      Lift([]int{1, 5, 3, 2, 6, 7, 4}),
 				keyFunc: func(i int) int { return i },
 			},
@@ -51,19 +51,19 @@ func TestSortStruct(t *testing.T) {
 		pk   int
 		data string
 	}
-	type args[T any, K constraints.Ordered] struct {
+	type sortStructArgs[T any, K constraints.Ordered] struct {
 		it      Iterator[Record]
 		keyFunc func(T) K
 	}
-	type testCase[T any, K constraints.Ordered] struct {
+	type sortStructTestCase[T any, K constraints.Ordered] struct {
 		name string
-		args args[T, K]
+		args sortStructArgs[T, K]
 		want []Record
 	}
-	tests := []testCase[Record, int]{
+	tests := []sortStructTestCase[Record, int]{
 		{
 			name: "simple sort",
-			args: args[Record, int]{
+			args: sortStructArgs[Record, int]{
 				it: Lift([]Record{
 					{
 						pk:   5,

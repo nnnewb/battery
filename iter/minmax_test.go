@@ -21,20 +21,20 @@ func ExampleMax() {
 }
 
 func TestMin(t *testing.T) {
-	type args[T any, K constraints.Ordered] struct {
+	type minArgs[T any, K constraints.Ordered] struct {
 		it      Iterator[int]
 		keyFunc func(T) K
 	}
-	type testCase[T any, K constraints.Ordered] struct {
+	type minTestCase[T any, K constraints.Ordered] struct {
 		name   string
-		args   args[T, K]
+		args   minArgs[T, K]
 		want   T
 		wantOk bool
 	}
-	tests := []testCase[int, int]{
+	tests := []minTestCase[int, int]{
 		{
 			name: "exhausted",
-			args: args[int, int]{
+			args: minArgs[int, int]{
 				it:      Exhausted[int](),
 				keyFunc: func(i int) int { return i },
 			},
@@ -43,7 +43,7 @@ func TestMin(t *testing.T) {
 		},
 		{
 			name: "at first",
-			args: args[int, int]{
+			args: minArgs[int, int]{
 				it:      Lift([]int{-5, 1, 5, 3, 3, 2, 1, -1, -1, -1, -5}),
 				keyFunc: func(i int) int { return i },
 			},
@@ -52,7 +52,7 @@ func TestMin(t *testing.T) {
 		},
 		{
 			name: "at end",
-			args: args[int, int]{
+			args: minArgs[int, int]{
 				it:      Lift([]int{1, 5, 3, 3, 2, 1, -1, -1, -1, -5}),
 				keyFunc: func(i int) int { return i },
 			},
@@ -61,7 +61,7 @@ func TestMin(t *testing.T) {
 		},
 		{
 			name: "at middle",
-			args: args[int, int]{
+			args: minArgs[int, int]{
 				it:      Lift([]int{1, 5, 3, 3, 2, -5, -1, -1, -1, -3}),
 				keyFunc: func(i int) int { return i },
 			},
@@ -83,20 +83,20 @@ func TestMin(t *testing.T) {
 }
 
 func TestMax(t *testing.T) {
-	type args[T any, K constraints.Ordered] struct {
+	type maxArgs[T any, K constraints.Ordered] struct {
 		it      Iterator[int]
 		keyFunc func(T) K
 	}
-	type testCase[T any, K constraints.Ordered] struct {
+	type maxTestCase[T any, K constraints.Ordered] struct {
 		name   string
-		args   args[T, K]
+		args   maxArgs[T, K]
 		want   T
 		wantOk bool
 	}
-	tests := []testCase[int, int]{
+	tests := []maxTestCase[int, int]{
 		{
 			name: "exhausted",
-			args: args[int, int]{
+			args: maxArgs[int, int]{
 				it:      Exhausted[int](),
 				keyFunc: func(i int) int { return i },
 			},
@@ -105,7 +105,7 @@ func TestMax(t *testing.T) {
 		},
 		{
 			name: "at first",
-			args: args[int, int]{
+			args: maxArgs[int, int]{
 				it:      Lift([]int{5, 1, 5, 3, 3, 2, 1, -1, -1, -1, -5}),
 				keyFunc: func(i int) int { return i },
 			},
@@ -114,7 +114,7 @@ func TestMax(t *testing.T) {
 		},
 		{
 			name: "at end",
-			args: args[int, int]{
+			args: maxArgs[int, int]{
 				it:      Lift([]int{1, 0, 3, 3, 2, 1, -1, -1, -1, 5}),
 				keyFunc: func(i int) int { return i },
 			},
@@ -123,7 +123,7 @@ func TestMax(t *testing.T) {
 		},
 		{
 			name: "at middle",
-			args: args[int, int]{
+			args: maxArgs[int, int]{
 				it:      Lift([]int{1, 5, 3, 3, 2, -5, -1, -1, -1, -3}),
 				keyFunc: func(i int) int { return i },
 			},

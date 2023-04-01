@@ -3,19 +3,19 @@ package assert
 import "testing"
 
 func TestEqual(t *testing.T) {
-	type args[T comparable] struct {
+	type equalArgs[T comparable] struct {
 		t     *testing.T
 		expr1 T
 		expr2 T
 	}
-	type testCase[T comparable] struct {
+	type equalTestCase[T comparable] struct {
 		name string
-		args args[T]
+		args equalArgs[T]
 	}
-	tests := []testCase[int]{
+	tests := []equalTestCase[int]{
 		{
 			name: "equals",
-			args: args[int]{
+			args: equalArgs[int]{
 				t:     t,
 				expr1: 1,
 				expr2: 1,

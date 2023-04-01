@@ -25,19 +25,19 @@ func ExampleGroupBy() {
 }
 
 func TestGroupBy(t *testing.T) {
-	type args[T any, K comparable] struct {
+	type groupByArgs[T any, K comparable] struct {
 		it      Iterator[int]
 		keyFunc func(T) K
 	}
 	type groupByTestCase[T any, K comparable] struct {
 		name string
-		args args[T, K]
+		args groupByArgs[T, K]
 		want map[K][]T
 	}
 	tests := []groupByTestCase[int, int]{
 		{
 			name: "exhausted",
-			args: args[int, int]{
+			args: groupByArgs[int, int]{
 				it:      Exhausted[int](),
 				keyFunc: func(i int) int { return i },
 			},
@@ -45,7 +45,7 @@ func TestGroupBy(t *testing.T) {
 		},
 		{
 			name: "simple",
-			args: args[int, int]{
+			args: groupByArgs[int, int]{
 				it:      Lift([]int{1, 3, 4, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1}),
 				keyFunc: func(i int) int { return i },
 			},

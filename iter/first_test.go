@@ -15,20 +15,20 @@ func ExampleFirst() {
 }
 
 func TestFirst(t *testing.T) {
-	type args[T any] struct {
+	type firstArgs[T any] struct {
 		it        Iterator[int]
 		predicate func(T) bool
 	}
-	type testCase[T any] struct {
+	type firstTestCase[T any] struct {
 		name   string
-		args   args[T]
+		args   firstArgs[T]
 		want   T
 		wantOK bool
 	}
-	tests := []testCase[int]{
+	tests := []firstTestCase[int]{
 		{
 			name: "exhausted",
-			args: args[int]{
+			args: firstArgs[int]{
 				it:        Exhausted[int](),
 				predicate: predicate.IsPositive[int],
 			},
@@ -37,7 +37,7 @@ func TestFirst(t *testing.T) {
 		},
 		{
 			name: "at first",
-			args: args[int]{
+			args: firstArgs[int]{
 				it:        Range(1, 10, 1),
 				predicate: predicate.IsPositive[int],
 			},
@@ -46,7 +46,7 @@ func TestFirst(t *testing.T) {
 		},
 		{
 			name: "at middle",
-			args: args[int]{
+			args: firstArgs[int]{
 				it:        Range(-5, 5, 1),
 				predicate: predicate.IsPositive[int],
 			},
@@ -55,7 +55,7 @@ func TestFirst(t *testing.T) {
 		},
 		{
 			name: "at end",
-			args: args[int]{
+			args: firstArgs[int]{
 				it:        Range(-10, 2, 1),
 				predicate: predicate.IsPositive[int],
 			},

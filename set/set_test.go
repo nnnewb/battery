@@ -8,33 +8,33 @@ import (
 )
 
 func TestSet_Add(t *testing.T) {
-	type args[T comparable] struct {
+	type setAddArgs[T comparable] struct {
 		values []T
 	}
-	type testCase[T comparable] struct {
+	type setAddTestCase[T comparable] struct {
 		name string
 		s    Set[T]
-		args args[T]
+		args setAddArgs[T]
 	}
-	tests := []testCase[int]{
+	tests := []setAddTestCase[int]{
 		{
 			name: "add single",
 			s:    make(Set[int]),
-			args: args[int]{
+			args: setAddArgs[int]{
 				values: []int{1},
 			},
 		},
 		{
 			name: "add multiple",
 			s:    make(Set[int]),
-			args: args[int]{
+			args: setAddArgs[int]{
 				values: []int{1, 2, 3, 4, 5},
 			},
 		},
 		{
 			name: "add empty",
 			s:    make(Set[int]),
-			args: args[int]{
+			args: setAddArgs[int]{
 				values: []int{},
 			},
 		},
@@ -50,26 +50,26 @@ func TestSet_Add(t *testing.T) {
 }
 
 func TestSet_Remove(t *testing.T) {
-	type args[T comparable] struct {
+	type setRemoveArgs[T comparable] struct {
 		value T
 	}
-	type testCase[T comparable] struct {
+	type setRemoveTestCase[T comparable] struct {
 		name string
 		s    Set[T]
-		args args[T]
+		args setRemoveArgs[T]
 	}
-	tests := []testCase[int]{
+	tests := []setRemoveTestCase[int]{
 		{
 			name: "simple",
 			s:    NewSetFromSlice([]int{1}),
-			args: args[int]{
+			args: setRemoveArgs[int]{
 				value: 1,
 			},
 		},
 		{
 			name: "remove from empty set",
 			s:    make(Set[int]),
-			args: args[int]{
+			args: setRemoveArgs[int]{
 				value: 1,
 			},
 		},
@@ -82,32 +82,32 @@ func TestSet_Remove(t *testing.T) {
 }
 
 func TestSet_Contains(t *testing.T) {
-	type args[T comparable] struct {
+	type setContainsArgs[T comparable] struct {
 		v T
 	}
-	type testCase[T comparable] struct {
+	type setContainsTestCase[T comparable] struct {
 		name string
 		s    Set[T]
-		args args[T]
+		args setContainsArgs[T]
 		want bool
 	}
-	tests := []testCase[int]{
+	tests := []setContainsTestCase[int]{
 		{
 			name: "existed",
 			s:    NewSetFromSlice([]int{1, 2, 3}),
-			args: args[int]{1},
+			args: setContainsArgs[int]{1},
 			want: true,
 		},
 		{
 			name: "not existed",
 			s:    NewSetFromSlice([]int{1, 2, 3}),
-			args: args[int]{4},
+			args: setContainsArgs[int]{4},
 			want: false,
 		},
 		{
 			name: "empty set",
 			s:    make(Set[int]),
-			args: args[int]{4},
+			args: setContainsArgs[int]{4},
 			want: false,
 		},
 	}
@@ -121,20 +121,20 @@ func TestSet_Contains(t *testing.T) {
 }
 
 func TestSet_RelativeComplement(t *testing.T) {
-	type args[T comparable] struct {
+	type setRelativeComplementArgs[T comparable] struct {
 		other Set[T]
 	}
-	type testCase[T comparable] struct {
+	type setRelativeComplementTestCase[T comparable] struct {
 		name string
 		s    Set[T]
-		args args[T]
+		args setRelativeComplementArgs[T]
 		want Set[T]
 	}
-	tests := []testCase[int]{
+	tests := []setRelativeComplementTestCase[int]{
 		{
 			name: "simple superset",
 			s:    NewSetFromSlice([]int{1, 2, 3, 4}),
-			args: args[int]{
+			args: setRelativeComplementArgs[int]{
 				other: NewSetFromSlice([]int{1, 2, 3}),
 			},
 			want: NewSetFromSlice([]int{4}),
@@ -142,7 +142,7 @@ func TestSet_RelativeComplement(t *testing.T) {
 		{
 			name: "simple subset",
 			s:    NewSetFromSlice([]int{1, 2, 3}),
-			args: args[int]{
+			args: setRelativeComplementArgs[int]{
 				other: NewSetFromSlice([]int{1, 2, 3, 4}),
 			},
 			want: NewSetFromSlice([]int{}),
@@ -150,7 +150,7 @@ func TestSet_RelativeComplement(t *testing.T) {
 		{
 			name: "simple intersection",
 			s:    NewSetFromSlice([]int{1, 2, 3}),
-			args: args[int]{
+			args: setRelativeComplementArgs[int]{
 				other: NewSetFromSlice([]int{2, 3, 4}),
 			},
 			want: NewSetFromSlice([]int{1}),
@@ -158,7 +158,7 @@ func TestSet_RelativeComplement(t *testing.T) {
 		{
 			name: "empty set against superset",
 			s:    NewSetFromSlice([]int{}),
-			args: args[int]{
+			args: setRelativeComplementArgs[int]{
 				other: NewSetFromSlice([]int{1, 2, 3}),
 			},
 			want: NewSetFromSlice([]int{}),
@@ -166,7 +166,7 @@ func TestSet_RelativeComplement(t *testing.T) {
 		{
 			name: "superset against empty set",
 			s:    NewSetFromSlice([]int{1, 2, 3}),
-			args: args[int]{
+			args: setRelativeComplementArgs[int]{
 				other: NewSetFromSlice([]int{}),
 			},
 			want: NewSetFromSlice([]int{1, 2, 3}),
@@ -174,7 +174,7 @@ func TestSet_RelativeComplement(t *testing.T) {
 		{
 			name: "empty set against empty set",
 			s:    NewSetFromSlice([]int{}),
-			args: args[int]{
+			args: setRelativeComplementArgs[int]{
 				other: NewSetFromSlice([]int{}),
 			},
 			want: NewSetFromSlice([]int{}),
@@ -190,11 +190,11 @@ func TestSet_RelativeComplement(t *testing.T) {
 }
 
 func TestNew(t *testing.T) {
-	type testCase[T comparable] struct {
+	type newTestCase[T comparable] struct {
 		name string
 		want Set[int]
 	}
-	tests := []testCase[int]{
+	tests := []newTestCase[int]{
 		{
 			name: "empty set",
 			want: Set[int]{},

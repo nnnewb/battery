@@ -15,20 +15,20 @@ func ExampleLast() {
 }
 
 func TestLast(t *testing.T) {
-	type args[T any] struct {
+	type lastArgs[T any] struct {
 		it        Iterator[int]
 		predicate func(T) bool
 	}
-	type testCase[T any] struct {
+	type lastTestCase[T any] struct {
 		name   string
-		args   args[T]
+		args   lastArgs[T]
 		want   T
 		wantOk bool
 	}
-	tests := []testCase[int]{
+	tests := []lastTestCase[int]{
 		{
 			name: "exhausted",
-			args: args[int]{
+			args: lastArgs[int]{
 				it:        Exhausted[int](),
 				predicate: predicate.IsPositive[int],
 			},
@@ -37,7 +37,7 @@ func TestLast(t *testing.T) {
 		},
 		{
 			name: "at end",
-			args: args[int]{
+			args: lastArgs[int]{
 				it:        Range(1, 10, 1),
 				predicate: predicate.IsPositive[int],
 			},
@@ -46,7 +46,7 @@ func TestLast(t *testing.T) {
 		},
 		{
 			name: "at middle",
-			args: args[int]{
+			args: lastArgs[int]{
 				it:        Lift([]int{-1, 0, 1, -2, -3}),
 				predicate: predicate.IsPositive[int],
 			},
@@ -55,7 +55,7 @@ func TestLast(t *testing.T) {
 		},
 		{
 			name: "at first",
-			args: args[int]{
+			args: lastArgs[int]{
 				it:        Lift([]int{1, 0, -1, -2, -3}),
 				predicate: predicate.IsPositive[int],
 			},
@@ -64,7 +64,7 @@ func TestLast(t *testing.T) {
 		},
 		{
 			name: "find zero",
-			args: args[int]{
+			args: lastArgs[int]{
 				it:        Range(0, 1, 1),
 				predicate: predicate.IsZero[int],
 			},

@@ -25,19 +25,19 @@ func ExampleCountBy() {
 }
 
 func TestCountBy(t *testing.T) {
-	type args[T any, K comparable] struct {
+	type countByArgs[T any, K comparable] struct {
 		it      Iterator[int]
 		keyFunc func(T) K
 	}
-	type testCase[T any, K comparable] struct {
+	type countByTestCase[T any, K comparable] struct {
 		name string
-		args args[T, K]
+		args countByArgs[T, K]
 		want map[K]int
 	}
-	tests := []testCase[int, int]{
+	tests := []countByTestCase[int, int]{
 		{
 			name: "exhausted",
-			args: args[int, int]{
+			args: countByArgs[int, int]{
 				it:      Exhausted[int](),
 				keyFunc: func(i int) int { return i },
 			},
@@ -45,7 +45,7 @@ func TestCountBy(t *testing.T) {
 		},
 		{
 			name: "simple",
-			args: args[int, int]{
+			args: countByArgs[int, int]{
 				it:      Lift([]int{4, 4, 3, 2, 1, 1, 2, 3, 5}),
 				keyFunc: func(i int) int { return i },
 			},

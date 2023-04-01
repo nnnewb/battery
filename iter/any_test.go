@@ -14,19 +14,19 @@ func ExampleAny() {
 }
 
 func TestAny(t *testing.T) {
-	type args[T any] struct {
+	type anyArgs[T any] struct {
 		iterable  Iterator[int]
 		predicate func(T) bool
 	}
-	type testCase[T any] struct {
+	type anyTestCase[T any] struct {
 		name string
-		args args[T]
+		args anyArgs[T]
 		want bool
 	}
-	tests := []testCase[int]{
+	tests := []anyTestCase[int]{
 		{
 			name: "expect true",
-			args: args[int]{
+			args: anyArgs[int]{
 				iterable:  Range(-10, 2, 1),
 				predicate: predicate.IsPositive[int],
 			},
@@ -34,7 +34,7 @@ func TestAny(t *testing.T) {
 		},
 		{
 			name: "expect false",
-			args: args[int]{
+			args: anyArgs[int]{
 				iterable:  Range(-10, 1, 1),
 				predicate: predicate.IsPositive[int],
 			},
@@ -42,7 +42,7 @@ func TestAny(t *testing.T) {
 		},
 		{
 			name: "exhausted",
-			args: args[int]{
+			args: anyArgs[int]{
 				iterable:  Exhausted[int](),
 				predicate: predicate.IsPositive[int],
 			},

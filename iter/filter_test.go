@@ -53,19 +53,19 @@ func TestFilterExhaustedLater(t *testing.T) {
 }
 
 func TestFilterTableDriven(t *testing.T) {
-	type args[T any] struct {
+	type filterArgs[T any] struct {
 		iterator Iterator[int]
 		isZero   func(T) bool
 	}
-	type testCase[T any] struct {
+	type FilterTestCase[T any] struct {
 		name string
-		args args[T]
+		args filterArgs[T]
 		want []int
 	}
-	tests := []testCase[int]{
+	tests := []FilterTestCase[int]{
 		{
 			name: "empty",
-			args: args[int]{
+			args: filterArgs[int]{
 				iterator: Exhausted[int](),
 				isZero:   predicate.IsZero[int],
 			},
@@ -73,7 +73,7 @@ func TestFilterTableDriven(t *testing.T) {
 		},
 		{
 			name: "shrink to zero",
-			args: args[int]{
+			args: filterArgs[int]{
 				iterator: Range(-10, 0, 1),
 				isZero:   predicate.IsPositive[int],
 			},
@@ -81,7 +81,7 @@ func TestFilterTableDriven(t *testing.T) {
 		},
 		{
 			name: "no change",
-			args: args[int]{
+			args: filterArgs[int]{
 				iterator: Range(1, 10, 1),
 				isZero:   predicate.IsPositive[int],
 			},
@@ -89,7 +89,7 @@ func TestFilterTableDriven(t *testing.T) {
 		},
 		{
 			name: "shrink",
-			args: args[int]{
+			args: filterArgs[int]{
 				iterator: Range(-5, 5, 1),
 				isZero:   predicate.IsPositive[int],
 			},

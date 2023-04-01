@@ -13,19 +13,19 @@ func ExampleAll() {
 }
 
 func TestAll(t *testing.T) {
-	type args[T any] struct {
+	type allArgs[T any] struct {
 		iterable  Iterator[int]
 		predicate func(T) bool
 	}
-	type testCase[T any] struct {
+	type allTestCase[T any] struct {
 		name string
-		args args[T]
+		args allArgs[T]
 		want bool
 	}
-	tests := []testCase[int]{
+	tests := []allTestCase[int]{
 		{
 			name: "empty",
-			args: args[int]{
+			args: allArgs[int]{
 				iterable:  Exhausted[int](),
 				predicate: func(i int) bool { return i > 0 },
 			},
@@ -33,7 +33,7 @@ func TestAll(t *testing.T) {
 		},
 		{
 			name: "expect true",
-			args: args[int]{
+			args: allArgs[int]{
 				iterable:  Range(1, 5, 1),
 				predicate: func(i int) bool { return i > 0 },
 			},
@@ -41,7 +41,7 @@ func TestAll(t *testing.T) {
 		},
 		{
 			name: "expect false",
-			args: args[int]{
+			args: allArgs[int]{
 				iterable:  Range(-5, 0, 1),
 				predicate: func(i int) bool { return i > 0 },
 			},

@@ -12,19 +12,19 @@ func ExampleContains() {
 }
 
 func TestContains(t *testing.T) {
-	type args[T any] struct {
+	type containsArgs[T any] struct {
 		iterable Iterator[int]
 		val      int
 	}
-	type testCase[T any] struct {
+	type containsTestCase[T any] struct {
 		name string
-		args args[T]
+		args containsArgs[T]
 		want bool
 	}
-	tests := []testCase[int]{
+	tests := []containsTestCase[int]{
 		{
 			name: "expect true",
-			args: args[int]{
+			args: containsArgs[int]{
 				iterable: Range(-10, 2, 1),
 				val:      1,
 			},
@@ -32,7 +32,7 @@ func TestContains(t *testing.T) {
 		},
 		{
 			name: "expect false",
-			args: args[int]{
+			args: containsArgs[int]{
 				iterable: Range(-10, 1, 1),
 				val:      1,
 			},
@@ -40,7 +40,7 @@ func TestContains(t *testing.T) {
 		},
 		{
 			name: "exhausted",
-			args: args[int]{
+			args: containsArgs[int]{
 				iterable: Exhausted[int](),
 				val:      1,
 			},

@@ -3,25 +3,25 @@ package assert
 import "testing"
 
 func TestEmpty(t *testing.T) {
-	type args[T any] struct {
+	type emptyArgs[T any] struct {
 		t     *testing.T
 		items []T
 	}
-	type testCase[T any] struct {
+	type emptyTestCase[T any] struct {
 		name string
-		args args[T]
+		args emptyArgs[T]
 	}
-	tests := []testCase[int]{
+	tests := []emptyTestCase[int]{
 		{
 			name: "empty slice",
-			args: args[int]{
+			args: emptyArgs[int]{
 				t:     t,
 				items: []int{},
 			},
 		},
 		{
 			name: "nil",
-			args: args[int]{
+			args: emptyArgs[int]{
 				t:     t,
 				items: nil,
 			},

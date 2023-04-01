@@ -36,8 +36,10 @@ func TestSortInt(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Sort(tt.args.it, tt.args.keyFunc); !reflect.DeepEqual(Collect(got), tt.want) {
-				t.Errorf("Sort() = %v, want %v", Collect(got), tt.want)
+			got := Sort(tt.args.it, tt.args.keyFunc)
+			s := Collect(got)
+			if !reflect.DeepEqual(s, tt.want) {
+				t.Errorf("Sort() = %v, want %v", s, tt.want)
 			}
 		})
 	}
@@ -111,8 +113,10 @@ func TestSortStruct(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Sort(tt.args.it, tt.args.keyFunc); !reflect.DeepEqual(Collect(got), tt.want) {
-				t.Errorf("Sort() = %v, want %v", Collect(got), tt.want)
+			got := Sort(tt.args.it, tt.args.keyFunc)
+			s := Collect(got)
+			if !reflect.DeepEqual(s, tt.want) {
+				t.Errorf("Sort() = %v, want %v", s, tt.want)
 			}
 		})
 	}

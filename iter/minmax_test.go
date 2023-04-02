@@ -8,19 +8,19 @@ import (
 	"github.com/nnnewb/battery/internal/constraints"
 )
 
-func ExampleMin() {
-	fmt.Println(Min(Lift([]int{6, 23, 4, 1, 2, 54, 1, 0}), func(i int) int { return i }))
+func ExampleMinFunc() {
+	fmt.Println(MinFunc(Lift([]int{6, 23, 4, 1, 2, 54, 1, 0}), func(i int) int { return i }))
 	// output:
 	// 0 true
 }
 
-func ExampleMax() {
-	fmt.Println(Max(Lift([]int{6, 23, 4, 1, 2, 54, 1, 0}), func(i int) int { return i }))
+func ExampleMaxFunc() {
+	fmt.Println(MaxFunc(Lift([]int{6, 23, 4, 1, 2, 54, 1, 0}), func(i int) int { return i }))
 	// output:
 	// 54 true
 }
 
-func TestMin(t *testing.T) {
+func TestMinFunc(t *testing.T) {
 	type minArgs[T any, K constraints.Ordered] struct {
 		it      Iterator[int]
 		keyFunc func(T) K
@@ -71,18 +71,18 @@ func TestMin(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, got1 := Min(tt.args.it, tt.args.keyFunc)
+			got, ok := MinFunc(tt.args.it, tt.args.keyFunc)
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Min() got = %v, want %v", got, tt.want)
+				t.Errorf("MinFunc() got = %v, want %v", got, tt.want)
 			}
-			if got1 != tt.wantOk {
-				t.Errorf("Min() got1 = %v, want %v", got1, tt.wantOk)
+			if ok != tt.wantOk {
+				t.Errorf("MinFunc() ok = %v, want %v", ok, tt.wantOk)
 			}
 		})
 	}
 }
 
-func TestMax(t *testing.T) {
+func TestMaxFunc(t *testing.T) {
 	type maxArgs[T any, K constraints.Ordered] struct {
 		it      Iterator[int]
 		keyFunc func(T) K
@@ -133,12 +133,126 @@ func TestMax(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, got1 := Max(tt.args.it, tt.args.keyFunc)
+			got, got1 := MaxFunc(tt.args.it, tt.args.keyFunc)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("MaxFunc() got = %v, want %v", got, tt.want)
+			}
+			if got1 != tt.wantOk {
+				t.Errorf("MaxFunc() got1 = %v, want %v", got1, tt.wantOk)
+			}
+		})
+	}
+}
+
+func TestMin(t *testing.T) {
+	type minArgs[T constraints.Ordered] struct {
+		it Iterator[T]
+	}
+	type minTestCase[T constraints.Ordered] struct {
+		name  string
+		args  minArgs[T]
+		want  T
+		found bool
+	}
+	tests := []minTestCase[int]{
+		{
+			name: "exhausted",
+			args: minArgs[int]{
+				it: Exhausted[int](),
+			},
+			want:  0,
+			found: false,
+		},
+		{
+			name: "at first",
+			args: minArgs[int]{
+				it: Lift([]int{1, 2, 3, 4, 5}),
+			},
+			want:  1,
+			found: true,
+		},
+		{
+			name: "at middle",
+			args: minArgs[int]{
+				it: Lift([]int{5, 4, 1, 2, 3}),
+			},
+			want:  1,
+			found: true,
+		},
+		{
+			name: "at end",
+			args: minArgs[int]{
+				it: Lift([]int{5, 4, 3, 2, 1}),
+			},
+			want:  1,
+			found: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, found := Min(tt.args.it)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Min() got = %v, want %v", got, tt.want)
+			}
+			if found != tt.found {
+				t.Errorf("Min() found = %v, want %v", found, tt.found)
+			}
+		})
+	}
+}
+
+func TestMax(t *testing.T) {
+	type maxArgs[T constraints.Ordered] struct {
+		it Iterator[T]
+	}
+	type maxTestCase[T constraints.Ordered] struct {
+		name  string
+		args  maxArgs[T]
+		want  T
+		found bool
+	}
+	tests := []maxTestCase[int]{
+		{
+			name: "exhausted",
+			args: maxArgs[int]{
+				it: Exhausted[int](),
+			},
+			want:  0,
+			found: false,
+		},
+		{
+			name: "at first",
+			args: maxArgs[int]{
+				it: Lift([]int{5, 4, 3, 2, 1}),
+			},
+			want:  5,
+			found: true,
+		},
+		{
+			name: "at middle",
+			args: maxArgs[int]{
+				it: Lift([]int{1, 4, 5, 2, 3}),
+			},
+			want:  5,
+			found: true,
+		},
+		{
+			name: "at end",
+			args: maxArgs[int]{
+				it: Lift([]int{5, 4, 3, 2, 6}),
+			},
+			want:  6,
+			found: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, found := Max(tt.args.it)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Max() got = %v, want %v", got, tt.want)
 			}
-			if got1 != tt.wantOk {
-				t.Errorf("Max() got1 = %v, want %v", got1, tt.wantOk)
+			if found != tt.found {
+				t.Errorf("Max() found = %v, want %v", found, tt.found)
 			}
 		})
 	}

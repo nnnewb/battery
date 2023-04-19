@@ -46,7 +46,9 @@ func (s Slice[T]) MinLessFunc(less func(i, j int) bool) (T, bool) {
 		return zero, false
 	}
 	r := make(Slice[T], 0, len(s))
-	copy(r, s)
+	for _, t := range s {
+		r = append(r, t)
+	}
 	sort.Slice(r, less)
 	return r[0], true
 }
@@ -57,7 +59,9 @@ func (s Slice[T]) MaxLessFunc(less func(i, j int) bool) (T, bool) {
 		return zero, false
 	}
 	r := make(Slice[T], 0, len(s))
-	copy(r, s)
+	for _, t := range s {
+		r = append(r, t)
+	}
 	sort.Slice(r, less)
 	return r[len(r)-1], true
 }

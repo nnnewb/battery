@@ -1,9 +1,12 @@
 package slices
 
-import "github.com/nnnewb/battery/iter"
-
-// Any 测试切片元素是否有任意一个元素满足条件，有则返回 true 。
-// 切片为空或没有满足条件的元素则返回 false 。
+// Any tests whether any element in the slice satisfies the predicate function.
+// Returns true if any element satisfies the predicate, false otherwise.
 func (s Slice[T]) Any(predicate func(T) bool) bool {
-	return iter.Any(iter.Lift(s), predicate)
+	for _, elem := range s {
+		if predicate(elem) {
+			return true
+		}
+	}
+	return false
 }

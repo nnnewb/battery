@@ -1,8 +1,10 @@
 package slices
 
-import "github.com/nnnewb/battery/iter"
-
-// Take 取前n个元素
+// Take returns the first n elements of the slice s.
+// If n is greater than the length of s, Take returns the entire slice.
 func (s Slice[T]) Take(n int) Slice[T] {
-	return iter.Collect(iter.Take(iter.Lift(s), n))
+	if n > len(s) {
+		n = len(s)
+	}
+	return s[:n]
 }

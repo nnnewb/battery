@@ -1,7 +1,7 @@
 package slices
 
-// Equal 比较两个切片是否相等。传入比较函数 eq，此函数返回 true 表示元素相同。
-// 元素数量、顺序都一致则认为切片相等。注意 nil 切片和空切片会视作相等。
+// Equal compares two slices for equality. Pass in a comparison function eq, which returns true if the elements are the same.
+// The slices are considered equal if they have the same number of elements and the same order. Note that a nil slice and an empty slice are considered equal.
 func (s Slice[T]) Equal(other []T, eq func(T, T) bool) bool {
 	if len(s) != len(other) {
 		return false

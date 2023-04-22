@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	assert "github.com/nnnewb/battery/internal/assert"
+	"github.com/nnnewb/battery/internal/assert"
 )
 
 func ExampleTake() {

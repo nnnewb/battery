@@ -23,7 +23,7 @@ func TestTake(t *testing.T) {
 
 	// Test taking some elements
 	result = s.Take(3)
-	if !reflect.DeepEqual(result, []int{1, 2, 3}) {
+	if !reflect.DeepEqual(result, Slice[int]{1, 2, 3}) {
 		t.Errorf("Take(3) = %v; want [1 2 3]", result)
 	}
 

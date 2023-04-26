@@ -20,7 +20,7 @@ func (s Slice[T]) Unique(equal func(x, y T) bool) Slice[T] {
 
 // Unique returns a new slice containing only the unique elements of the original slice, in the order they first appear.
 // It uses a map to improve performance compared to the original Unique function.
-func Unique[T comparable](s Slice[T], equal func(x, y T) bool) Slice[T] {
+func Unique[T comparable](s Slice[T]) Slice[T] {
 	uniqueSlice := make(Slice[T], 0, len(s))
 	seen := make(map[T]bool)
 	for _, elem := range s {

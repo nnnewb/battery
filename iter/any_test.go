@@ -7,13 +7,13 @@ import (
 	"github.com/nnnewb/battery/internal/predicate"
 )
 
-func ExampleAny() {
-	fmt.Println(Any(Range(0, 10, 1), predicate.IsZero[int]))
+func ExampleAnyFunc() {
+	fmt.Println(AnyFunc(Range(0, 10, 1), predicate.IsZero[int]))
 	// output:
 	// true
 }
 
-func TestAny(t *testing.T) {
+func TestAnyFunc(t *testing.T) {
 	type anyArgs[T any] struct {
 		iterable  Iterator[int]
 		predicate func(T) bool
@@ -51,8 +51,8 @@ func TestAny(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Any(tt.args.iterable, tt.args.predicate); got != tt.want {
-				t.Errorf("Any() = %v, want %v", got, tt.want)
+			if got := AnyFunc(tt.args.iterable, tt.args.predicate); got != tt.want {
+				t.Errorf("AnyFunc() = %v, want %v", got, tt.want)
 			}
 		})
 	}

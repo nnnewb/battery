@@ -116,7 +116,11 @@ func (s Set[T]) Copy() Set[T] {
 //	slice := s.ToSlice()
 //	println(len(slice) == 2)
 func (s Set[T]) ToSlice() []T {
-	return iter.Collect(s.Iter())
+	ret := make([]T, 0, len(s))
+	for v := range s {
+		ret = append(ret, v)
+	}
+	return ret
 }
 
 // Iter 基于 Generator 创建的迭代器。
@@ -126,12 +130,15 @@ func (s Set[T]) ToSlice() []T {
 //	slice := Collect(Filter(s.Iter(), func(i int) bool { return i > 1}))
 //	println(len(slice)==1)
 func (s Set[T]) Iter() iter.Iterator[T] {
-	return iter.Generator[T](func() (T, bool) {
-		var t T
-		for v := range s {
-			return v, true
-		}
-		return t, false
+	copied := s.Copy()
+	c := make(chan T, len(copied))
+	for v := range copied {
+		c <- v
+	}
+
+	return iter.Generator(func() (T, bool) {
+		v, ok := <-c
+		return v, ok
 	})
 }
 

@@ -5,14 +5,14 @@ import (
 	"testing"
 )
 
-func ExampleAll() {
+func ExampleAllFunc() {
 	positive := func(i int) bool { return i > 0 }
-	fmt.Println(All(Range(1, 10, 1), positive))
+	fmt.Println(AllFunc(Range(1, 10, 1), positive))
 	// output:
 	// true
 }
 
-func TestAll(t *testing.T) {
+func TestAllFunc(t *testing.T) {
 	type allArgs[T any] struct {
 		iterable  Iterator[int]
 		predicate func(T) bool
@@ -50,8 +50,8 @@ func TestAll(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := All(tt.args.iterable, tt.args.predicate); got != tt.want {
-				t.Errorf("All() = %v, want %v", got, tt.want)
+			if got := AllFunc(tt.args.iterable, tt.args.predicate); got != tt.want {
+				t.Errorf("AllFunc() = %v, want %v", got, tt.want)
 			}
 		})
 	}

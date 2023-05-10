@@ -5,14 +5,14 @@ import (
 	"testing"
 )
 
-func ExampleContains() {
+func ExampleContainsFunc() {
 	equal := func(a int, b int) bool { return a == b }
-	fmt.Println(Contains(Range(0, 10, 1), 0, equal))
+	fmt.Println(ContainsFunc(Range(0, 10, 1), 0, equal))
 	// output:
 	// true
 }
 
-func TestContains(t *testing.T) {
+func TestContainsFunc(t *testing.T) {
 	equal := func(a int, b int) bool { return a == b }
 	type containsArgs[T any] struct {
 		iterable Iterator[int]
@@ -51,8 +51,8 @@ func TestContains(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Contains(tt.args.iterable, tt.args.val, equal); got != tt.want {
-				t.Errorf("Any() = %v, want %v", got, tt.want)
+			if got := ContainsFunc(tt.args.iterable, tt.args.val, equal); got != tt.want {
+				t.Errorf("AnyFunc() = %v, want %v", got, tt.want)
 			}
 		})
 	}

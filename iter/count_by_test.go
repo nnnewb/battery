@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func ExampleCountBy() {
+func ExampleCountByFunc() {
 	type record struct {
 		recordType int
 		name       string
@@ -19,12 +19,12 @@ func ExampleCountBy() {
 		{2, "name4"},
 	}
 
-	fmt.Println(CountBy(Lift(records), func(r record) int { return r.recordType }))
+	fmt.Println(CountByFunc(Lift(records), func(r record) int { return r.recordType }))
 	// output:
 	// map[1:2 2:2]
 }
 
-func TestCountBy(t *testing.T) {
+func TestCountByFunc(t *testing.T) {
 	type countByArgs[T any, K comparable] struct {
 		it      Iterator[int]
 		keyFunc func(T) K
@@ -60,8 +60,8 @@ func TestCountBy(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := CountBy(tt.args.it, tt.args.keyFunc); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("CountBy() = %v, want %v", got, tt.want)
+			if got := CountByFunc(tt.args.it, tt.args.keyFunc); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("CountByFunc() = %v, want %v", got, tt.want)
 			}
 		})
 	}

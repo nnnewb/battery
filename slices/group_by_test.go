@@ -7,7 +7,7 @@ import (
 
 func TestGroupBy(t *testing.T) {
 	type groupByArgs[T any, K comparable] struct {
-		s       Slice[T]
+		s       []T
 		keyFunc func(T) K
 	}
 	type groupByTC[T any, K comparable] struct {

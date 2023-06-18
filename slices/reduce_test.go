@@ -7,7 +7,7 @@ import (
 
 func TestReduce(t *testing.T) {
 	type reduceArgs[T any, R any] struct {
-		s       Slice[T]
+		s       []T
 		initial R
 		f       func(R, T) R
 	}

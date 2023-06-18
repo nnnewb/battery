@@ -9,7 +9,7 @@ import (
 )
 
 var equalIntTests = []struct {
-	s1, s2 Slice[int]
+	s1, s2 []int
 	want   bool
 }{
 	{
@@ -35,7 +35,7 @@ var equalIntTests = []struct {
 }
 
 var equalFloatTests = []struct {
-	s1, s2       Slice[float64]
+	s1, s2       []float64
 	wantEqual    bool
 	wantEqualNaN bool
 }{
@@ -55,12 +55,12 @@ var equalFloatTests = []struct {
 
 func TestEqual(t *testing.T) {
 	for _, test := range equalIntTests {
-		if got := test.s1.Equal(test.s2, equal[int]); got != test.want {
+		if got := Equal(test.s1, test.s2); got != test.want {
 			t.Errorf("Equal(%v, %v) = %t, want %t", test.s1, test.s2, got, test.want)
 		}
 	}
 	for _, test := range equalFloatTests {
-		if got := test.s1.Equal(test.s2, equal[float64]); got != test.wantEqual {
+		if got := Equal(test.s1, test.s2); got != test.wantEqual {
 			t.Errorf("Equal(%v, %v) = %t, want %t", test.s1, test.s2, got, test.wantEqual)
 		}
 	}
@@ -84,26 +84,26 @@ func offByOne[E constraints.Integer](v1, v2 E) bool {
 
 func TestEqualFunc(t *testing.T) {
 	for _, test := range equalFloatTests {
-		if got := test.s1.Equal(test.s2, equal[float64]); got != test.wantEqual {
+		if got := EqualFunc(test.s1, test.s2, equal[float64]); got != test.wantEqual {
 			t.Errorf("Equal(%v, %v, equal[float64]) = %t, want %t", test.s1, test.s2, got, test.wantEqual)
 		}
-		if got := test.s1.Equal(test.s2, equalNaN[float64]); got != test.wantEqualNaN {
+		if got := EqualFunc(test.s1, test.s2, equalNaN[float64]); got != test.wantEqualNaN {
 			t.Errorf("Equal(%v, %v, equalNaN[float64]) = %t, want %t", test.s1, test.s2, got, test.wantEqualNaN)
 		}
 	}
 
-	s1 := Slice[int]{1, 2, 3}
-	s2 := Slice[int]{2, 3, 4}
-	if s1.Equal(s1, offByOne[int]) {
+	s1 := []int{1, 2, 3}
+	s2 := []int{2, 3, 4}
+	if EqualFunc(s1, s1, offByOne[int]) {
 		t.Errorf("EqualFunc(%v, %v, offByOne) = true, want false", s1, s1)
 	}
-	if !s1.Equal(s2, offByOne[int]) {
+	if !EqualFunc(s1, s2, offByOne[int]) {
 		t.Errorf("EqualFunc(%v, %v, offByOne) = false, want true", s1, s2)
 	}
 
-	s3 := Slice[string]{"a", "b", "c"}
-	s4 := Slice[string]{"A", "B", "C"}
-	if !s3.Equal(s4, strings.EqualFold) {
+	s3 := []string{"a", "b", "c"}
+	s4 := []string{"A", "B", "C"}
+	if !EqualFunc(s3, s4, strings.EqualFold) {
 		t.Errorf("EqualFunc(%v, %v, strings.EqualFold) = false, want true", s3, s4)
 	}
 }

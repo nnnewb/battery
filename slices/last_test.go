@@ -1,18 +1,36 @@
 package slices
 
 import (
-	"github.com/nnnewb/battery/internal/predicate"
 	"reflect"
 	"testing"
+
+	"github.com/nnnewb/battery/internal/predicate"
 )
 
-func TestSlice_Last(t *testing.T) {
+func TestLast(t *testing.T) {
+	s := []int{1, 2, 3, 2, 4, 5, 2}
+	// Positive test case
+	if idx, ok := Last(s, 2); !ok || idx != 6 {
+		t.Errorf("Last(s, 2) returned (%v, %v), expected (6, true)", idx, ok)
+	}
+	// Negative test case
+	if idx, ok := Last(s, 6); ok {
+		t.Errorf("Last(s, 6) returned (%v, %v), expected (0, false)", idx, ok)
+	}
+	// Test case for nil slice
+	var nilSlice []int
+	if idx, ok := Last(nilSlice, 2); ok {
+		t.Errorf("Last(nilSlice, 2) returned (%v, %v), expected (0, false)", idx, ok)
+	}
+}
+
+func TestLastFunc(t *testing.T) {
 	type sliceLastArgs[T any] struct {
 		predicate func(T) bool
 	}
 	type sliceLastTC[T any] struct {
 		name string
-		s    Slice[T]
+		s    []T
 		args sliceLastArgs[T]
 		want T
 		ok   bool
@@ -33,7 +51,7 @@ func TestSlice_Last(t *testing.T) {
 			args: sliceLastArgs[int]{
 				predicate: predicate.IsPositive[int],
 			},
-			want: 1,
+			want: 4,
 			ok:   true,
 		},
 		{
@@ -42,13 +60,13 @@ func TestSlice_Last(t *testing.T) {
 			args: sliceLastArgs[int]{
 				predicate: predicate.IsPositive[int],
 			},
-			want: 1,
+			want: 5,
 			ok:   true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, got1 := tt.s.Last(tt.args.predicate)
+			got, got1 := LastFunc(tt.s, tt.args.predicate)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Last() got = %v, want %v", got, tt.want)
 			}

@@ -7,13 +7,13 @@ import (
 
 func TestSlice_Concat(t *testing.T) {
 	type sliceConcatArgs[T any] struct {
-		other []Slice[int]
+		other [][]int
 	}
 	type sliceConcatTestCase[T any] struct {
 		name string
-		s    Slice[T]
+		s    []T
 		args sliceConcatArgs[T]
-		want Slice[T]
+		want []T
 	}
 	tests := []sliceConcatTestCase[int]{
 		{
@@ -28,7 +28,7 @@ func TestSlice_Concat(t *testing.T) {
 			name: "nil concat with non-nil",
 			s:    nil,
 			args: sliceConcatArgs[int]{
-				other: []Slice[int]{[]int{1, 1, 1, 1}},
+				other: [][]int{{1, 1, 1, 1}},
 			},
 			want: []int{1, 1, 1, 1},
 		},
@@ -44,8 +44,8 @@ func TestSlice_Concat(t *testing.T) {
 			name: "add two slice",
 			s:    []int{1, 1, 1, 1},
 			args: sliceConcatArgs[int]{
-				other: []Slice[int]{
-					[]int{1, 1, 1, 1},
+				other: [][]int{
+					{1, 1, 1, 1},
 				},
 			},
 			want: []int{1, 1, 1, 1, 1, 1, 1, 1},
@@ -54,9 +54,9 @@ func TestSlice_Concat(t *testing.T) {
 			name: "add more slice",
 			s:    []int{1, 2, 3, 4},
 			args: sliceConcatArgs[int]{
-				other: []Slice[int]{
-					[]int{5, 6, 7, 8},
-					[]int{9, 10, 11, 12},
+				other: [][]int{
+					{5, 6, 7, 8},
+					{9, 10, 11, 12},
 				},
 			},
 			want: []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12},
@@ -64,7 +64,7 @@ func TestSlice_Concat(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.s.Concat(tt.args.other...); !reflect.DeepEqual(got, tt.want) {
+			if got := Concat(tt.s, tt.args.other...); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Concat() = %v, want %v", got, tt.want)
 			}
 		})

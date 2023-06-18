@@ -5,15 +5,15 @@ import (
 	"testing"
 )
 
-func TestSlice_SortLessFunc(t *testing.T) {
+func TestSortLessFunc(t *testing.T) {
 	type sliceSortLessFuncArgs struct {
 		less func(i, j int) bool
 	}
 	type sliceSortLessFuncTC[T any] struct {
 		name string
-		s    Slice[T]
+		s    []T
 		args sliceSortLessFuncArgs
-		want Slice[T]
+		want []T
 	}
 	var s = []int{1, 4, 3, 2, 5, 8, 7, 6, 9, 0}
 	tests := []sliceSortLessFuncTC[int]{
@@ -40,7 +40,7 @@ func TestSlice_SortLessFunc(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.s.SortLessFunc(tt.args.less); !reflect.DeepEqual(got, tt.want) {
+			if got := SortLessFunc(tt.s, tt.args.less); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("SortLessFunc() = %v, want %v", got, tt.want)
 			}
 		})

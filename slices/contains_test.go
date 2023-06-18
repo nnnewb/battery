@@ -2,55 +2,64 @@ package slices
 
 import "testing"
 
-func TestSlice_Contains(t *testing.T) {
-	type sliceContainsArgs[T any] struct {
-		v     T
-		equal func(T, T) bool
+func TestContains(t *testing.T) {
+	// Positive test case
+	s := []string{"apple", "banana", "cherry"}
+	v := "banana"
+	expected := true
+	actual := Contains(s, v)
+	if actual != expected {
+		t.Errorf("Contains(%v, %s) = %t; expected %t", s, v, actual, expected)
 	}
-	type sliceContainsTestCase[T any] struct {
-		name string
-		s    Slice[T]
-		args sliceContainsArgs[T]
-		want bool
+	// Negative test case
+	s = []string{"apple", "banana", "cherry"}
+	v = "orange"
+	expected = false
+	actual = Contains(s, v)
+	if actual != expected {
+		t.Errorf("Contains(%v, %s) = %t; expected %t", s, v, actual, expected)
 	}
-	tests := []sliceContainsTestCase[int]{
+}
+
+func TestContainsFunc(t *testing.T) {
+	tests := []struct {
+		name  string
+		s     []int
+		v     int
+		equal func(int, int) bool
+		want  bool
+	}{
 		{
 			name: "nil slice",
 			s:    nil,
-			args: sliceContainsArgs[int]{
-				v: 0,
-				equal: func(a int, b int) bool {
-					return a == b
-				},
+			v:    0,
+			equal: func(a int, b int) bool {
+				return a == b
 			},
 			want: false,
 		},
 		{
 			name: "expect false",
 			s:    []int{1, 1, 1, 1},
-			args: sliceContainsArgs[int]{
-				v: 2,
-				equal: func(a int, b int) bool {
-					return a == b
-				},
+			v:    2,
+			equal: func(a int, b int) bool {
+				return a == b
 			},
 			want: false,
 		},
 		{
 			name: "expect true",
 			s:    []int{5, 4, 3, 2, 1},
-			args: sliceContainsArgs[int]{
-				v: 1,
-				equal: func(a int, b int) bool {
-					return a == b
-				},
+			v:    1,
+			equal: func(a int, b int) bool {
+				return a == b
 			},
 			want: true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.s.Contains(tt.args.v, tt.args.equal); got != tt.want {
+			if got := ContainsFunc(tt.s, tt.v, tt.equal); got != tt.want {
 				t.Errorf("Contains() = %v, want %v", got, tt.want)
 			}
 		})

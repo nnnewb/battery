@@ -7,7 +7,7 @@ import (
 
 func TestCountBy(t *testing.T) {
 	type countByArgs[T any, K comparable] struct {
-		s       Slice[T]
+		s       []T
 		keyFunc func(T) K
 	}
 	type countByTestCase[T any, K comparable] struct {

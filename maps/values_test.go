@@ -2,6 +2,8 @@ package maps
 
 import (
 	"testing"
+
+	"github.com/nnnewb/battery/slices"
 )
 
 // Unit test for Values function
@@ -10,7 +12,7 @@ func TestValues(t *testing.T) {
 	expected := []int{1, 2, 3}
 	result := Values(m)
 	for _, v := range expected {
-		if !result.Contains(v, func(i int, i2 int) bool { return i == i2 }) {
+		if !slices.Contains(result, v) {
 			t.Errorf("Values(%v) = %v; expected %v", m, result, expected)
 		}
 	}

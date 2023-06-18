@@ -8,13 +8,13 @@ import (
 
 func TestMap(t *testing.T) {
 	type mapArgs[T any, R any] struct {
-		s Slice[T]
+		s []T
 		f func(T) R
 	}
 	type mapTC[T any, R any] struct {
 		name string
 		args mapArgs[T, R]
-		want Slice[R]
+		want []R
 	}
 	tests := []mapTC[int, int]{
 		{
@@ -49,13 +49,13 @@ func TestMap(t *testing.T) {
 
 func TestMapTypeConv(t *testing.T) {
 	type mapArgs[T any, R any] struct {
-		s Slice[T]
+		s []T
 		f func(T) R
 	}
 	type mapTC[T any, R any] struct {
 		name string
 		args mapArgs[T, R]
-		want Slice[R]
+		want []R
 	}
 	tests := []mapTC[int, string]{
 		{

@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // Map applies the function f to each element of the slice s and returns a new slice with the results in the same order.

@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // GroupBy groups the elements of a slice by a key returned by the keyFunc function.

@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // Take returns the first n elements of the slice s.

@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // Copy returns a new slice with the same elements as the original slice. The original slice is not modified.

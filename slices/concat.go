@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 func Concat[T any](s []T, other ...[]T) []T {

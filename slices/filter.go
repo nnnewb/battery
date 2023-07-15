@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // Filter returns a new slice containing only the elements of the original slice for which the predicate function returns true

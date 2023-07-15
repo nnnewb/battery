@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // Drop returns a new slice with the first n elements removed. If n is greater than or equal to the length of the slice,

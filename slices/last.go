@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // Last returns the index of the element's last appearance in the slice.

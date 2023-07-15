@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // First returns the index of first element in the slice that satisfies the

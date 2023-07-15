@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // Delete removes the element at the specified index from the slice and returns the resulting slice.

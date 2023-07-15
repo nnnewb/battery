@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // Equal compares two slices for equality. Pass in a comparison function eq, which returns true if the elements are the same.

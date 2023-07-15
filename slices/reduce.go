@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // Reduce applies a function to each element of a slice and returns a single value.

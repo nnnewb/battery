@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // DropWhile returns a new slice containing all but the longest prefix of the original slice for which the given function returns true.

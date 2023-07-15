@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // Insert inserts an element at the specified index in the slice and returns the modified slice.

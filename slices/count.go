@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // Count returns the number of elements in the slice that satisfy the given predicate function.

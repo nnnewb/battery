@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // Reverse create a new slice with the same length as the original slice

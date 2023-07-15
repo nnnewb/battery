@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // Contains takes in a slice of type T and a value of type T as

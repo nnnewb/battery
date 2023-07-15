@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // Chunk returns a new slice containing slices of size n from the original slice.

@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // UniqueFunc returns a new slice containing only the unique elements of the

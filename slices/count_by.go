@@ -1,3 +1,5 @@
+//go:build go1.18
+
 package slices
 
 // CountBy returns a map of keys to the number of elements in the slice that map to that key.
